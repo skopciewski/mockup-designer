@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Use mockups</title>
+    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/h5bp.css" />
+    <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+    <style type="text/css">
+        body {
+            background-image: url(/static/images/background.png);
+
+        }
+
+        aside {
+            background-color: #2c2c2c;
+            position: fixed;
+            width: 210px;
+            height: 100%;
+            top: 0;
+            box-shadow: 0 0 30px gray;
+
+        }
+
+            aside h2 {
+                padding: 0 5px;
+                margin: 10px 10px;
+                font-weight: normal;
+                font-size: 18px;
+                border-left: 5px solid #6CF;
+                color: white;
+            }
+
+            aside .toolbox {
+                margin: 3px;
+                padding: 0;
+            }
+
+            aside .toolbox li {
+                margin: 2px;
+                padding: 0;
+                float: left;
+                width: 60px;
+                height: 40px;
+                list-style: none;
+                background-color: #292929;
+                color: white;
+                font-size: 12px;
+                text-align: center;
+                border: 1px solid #292929;
+            }
+
+        article {
+            background-color: white;
+            margin: 80px 0 50px 250px;
+            box-shadow: 0 0 20px #c6c6c6;
+
+        }
+
+        header {
+            position: absolute;
+            top: 20px;
+            left: 250px;
+        }
+
+        header h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 30px;
+            color: #484848;
+        }
+
+
+        .toolbox li {
+            background: url(/static/images/icons.png);
+            text-indent: -900px;
+        }
+
+        .toolbox .button {
+            background-position: 0 -7px;
+        }
+
+        .toolbox .checkbox {
+            background-position: -60px -7px;
+        }
+
+        .toolbox .radio {
+            background-position: -120px -7px;
+        }
+
+        .toolbox .scroll {
+            background-position: -180px -9px;
+        }
+
+        .toolbox .select {
+            background-position: -240px -5px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <aside>
+        <h2>Toolbox</h2>
+        <ul class="toolbox">
+            <li class="button" data-template="button-template">button</li>
+            <li class="checkbox">checkbox</li>
+            <li class="radio">radio</li>
+            <li class="scroll">scrollbar</li>
+            <li class="select">select box</li>
+        </ul>
+    </aside>
+
+    <header>
+        <h1>Usemockups sketches</h1>
+    </header>
+
+    <article style="width: 960px; height: 1200px;">
+
+
+    </article>
+
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+{#            $(".object").draggable().resizable({#}
+{#                aspectRatio: 1#}
+{#            });#}
+
+            $(".button").draggable({
+                cursor: "move",
+                helper: function () {
+                    return $("<div style='z-index:3'>slm</div>")
+                }
+            })
+
+        });
+    </script>
+
+</body>
+</html>
