@@ -182,7 +182,7 @@
             <% for (var i=0; i < rows; i++ ) { %>
                 <tr>
                     <% for (var j=0; j < columns; j++ ) { %>
-                        <td><input type="text" data-row="<%= i %>" data-column="<%= j %>" value="<%=  values[i][j]  %>" /></td>
+                        <td><input type="text" data-row="<%= i %>" data-column="<%= j %>" value="<%=  values[i] ? values[i][j] : ''  %>" /></td>
                     <% } %>
                 </tr>
             <% } %>

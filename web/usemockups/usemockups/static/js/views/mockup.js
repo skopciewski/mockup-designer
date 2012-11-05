@@ -33,7 +33,15 @@ usemockups.views.Mockup = Backbone.View.extend({
     }
 });
 
+/*
+* Custom Mockups
+* */
+
 usemockups.views.TableMockup = usemockups.views.Mockup.extend({
+    initialize: function () {
+        usemockups.views.Mockup.prototype.initialize.apply(this);
+        this.model.on("change:columns change:rows", this.persist_values, this)
+    },
     render: function () {
         usemockups.views.Mockup.prototype.render.apply(this);
         this.$el.find("input").change(function (event) {
@@ -43,5 +51,19 @@ usemockups.views.TableMockup = usemockups.views.Mockup.extend({
             this.model.set("values", values)
         }.bind(this));
         return this;
+    },
+    persist_values: function () {
+        var values = this.model.get("values"),
+            rows = this.model.get("rows"),
+            columns = this.model.get("columns");
+
+        for (var i=0; i<rows; i++) {
+            values[i] = values[i] || [];
+            for (var j=0; j<columns; j++) {
+                values[i][j] = values[i][j] || "";
+            }
+        }
+
+        this.model.set("values", values);
     }
 });
