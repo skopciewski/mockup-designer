@@ -126,11 +126,6 @@
     <aside>
         <h2>Toolbox</h2>
         <ul class="toolbox">
-            <li class="button" data-template="#button-template">button</li>
-            <li class="checkbox" data-template="#checkbox-template">checkbox</li>
-            <li class="radio">radio</li>
-            <li class="scroll">scrollbar</li>
-            <li class="select">select box</li>
         </ul>
     </aside>
 
@@ -156,81 +151,37 @@
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js"></script>
+
+    <script type="text/javascript">
+        var usemockups = {
+            models: {},
+            collections: {},
+            views: {},
+            tools: []
+        }
+    </script>
+
+    <script src="{{ STATIC_URL }}js/models/toolbox.js"></script>
+    <script src="{{ STATIC_URL }}js/views/document.js"></script>
+    <script src="{{ STATIC_URL }}js/views/toolbox.js"></script>
+    <script src="{{ STATIC_URL }}js/views/mockup.js"></script>
+
     <script type="text/javascript">
 
-        var Mockup = Backbone.View.extend({
-            tagName: "div",
-            className: "object",
-            render: function () {
-                this.$el.css({
-                    "top": this.options.top,
-                    "left": this.options.left
-                }).draggable({
-                    "containment": "article"
-                }).html(_.template(this.options.template, {}));
-                return this;
-            }
-        });
 
-        var Page = Backbone.View.extend({
-            "el": "article",
-            render: function () {
-                this.$el.droppable({
-                    accept: ".toolbox li",
-                    drop: function (event, ui) {
-
-                        var left =  ui.offset.left,
-                            top = ui.offset.top,
-                            draggable = ui.draggable;
-
-                        this.$el.append(new Mockup({
-                            "top": top,
-                            "left": left,
-                            "template": $(draggable.data("template")).html()
-                        }).render().el);
-
-                    }.bind(this)
-                })
-            }
-        });
-
-
-        var Document = Backbone.View.extend({
-            el: "body",
-            render: function () {
-                this.$el.find(".toolbox li").draggable({
-                    cursor: "move",
-                    stack: "article",
-                    helper: function () {
-                        return (new ToolPreview({tool: $(this)}).render().el)
-                    }
-                });
-
-                (new Page()).render();
-            }
-        });
-
-
-        var ToolPreview = Backbone.View.extend({
-
-            tagName: "div",
-            className: "object preview",
-
-            initialize: function () {
-                this.template = $(this.options.tool.data("template")).html();
-            },
-
-            render: function () {
-                this.$el.html(_.template(this.template, {}));
-                return this;
-            }
-        });
+        usemockups.tools = new usemockups.collections.Tools([{
+            "name": "button",
+            "template": "#button-template"
+        },{
+            "name": "checkbox",
+            "template": "#checkbox-template"
+        }]);
 
 
         $(function () {
 
 
-            (new Document()).render()
+            (new usemockups.views.Document()).render()
 
 
         });
