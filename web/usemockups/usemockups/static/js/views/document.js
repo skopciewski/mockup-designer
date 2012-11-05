@@ -4,15 +4,22 @@ usemockups.views.Page = Backbone.View.extend({
         this.$el.droppable({
             accept: ".toolbox li",
             drop: function (event, ui) {
+                
+                var left =  ui.offset.left - this.$el.offset().left,
+                    top = ui.offset.top - this.$el.offset().top,
+                    tool_name = ui.draggable.data("tool");
 
-                var left =  ui.offset.left,
-                    top = ui.offset.top,
-                    draggable = ui.draggable;
+                var mockup = new usemockups.models.Mockup({
+                    top: top,
+                    left: left,
+                    tool: tool_name
+                });
 
-                this.$el.append(new usemockups.views.Mockup({
-                    "top": top,
-                    "left": left,
-                    "tool": usemockups.tools.get(draggable.data("tool"))
+                var mockup_view = usemockups.custom_mockup_views[tool_name]
+                                || usemockups.views.Mockup;
+
+                this.$el.append(new mockup_view({
+                    model: mockup
                 }).render().el);
 
             }.bind(this)
@@ -25,7 +32,7 @@ usemockups.views.Document = Backbone.View.extend({
     el: "body",
     render: function () {
 
-        _.forEach(usemockups.tools.models, function (tool) {
+        _.forEach(usemockups.toolbox.models, function (tool) {
 
             $("<li>").addClass(tool.get("name")).data("tool", tool.get("name")).appendTo(
                 this.$el.find(".toolbox"));
@@ -37,7 +44,8 @@ usemockups.views.Document = Backbone.View.extend({
             cursor: "move",
             stack: "article",
             helper: function () {
-                return (new usemockups.views.ToolPreview({tool: usemockups.tools.get($(this).data("tool"))}).render().el)
+                return new usemockups.views.ToolPreview({
+                    tool: usemockups.toolbox.get($(this).data("tool"))}).render().el
             }
         });
 

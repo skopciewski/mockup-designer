@@ -4,11 +4,12 @@ usemockups.views.ToolPreview = Backbone.View.extend({
     className: "object preview",
 
     initialize: function () {
-        this.template = $(this.options.tool.get("template")).html();
+        this.tool = this.options.tool;
+        this.template = $(this.tool.get("template")).html();
     },
 
     render: function () {
-        this.$el.html(_.template(this.template, {}));
+        this.$el.html(_.template(this.template, this.tool.get_attributes()));
         return this;
     }
 });

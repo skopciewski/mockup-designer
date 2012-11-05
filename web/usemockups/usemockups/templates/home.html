@@ -32,6 +32,7 @@
             aside .toolbox {
                 margin: 3px;
                 padding: 0;
+                height: 50%;
             }
 
             aside .toolbox li {
@@ -94,6 +95,10 @@
             background-position: -240px -5px;
         }
 
+        .toolbox .table {
+            background-position: -300px -7px;
+        }
+
 
         .object {
             position: absolute !important; /* prevent jquery ui draggable position definition */
@@ -119,14 +124,34 @@
 
         }
 
+        .object table {
+            background-color: #e8e8e8;
+            border: 3px solid #292929;
+
+        }
+
+        .object table td {
+            padding: 5px;
+        }
+
+        .object table th {
+            text-align: center;
+            padding: 3px 5px;
+            background-color: #292929;
+            color: white;
+        }
+
     </style>
 </head>
 <body>
 
     <aside>
         <h2>Toolbox</h2>
-        <ul class="toolbox">
-        </ul>
+        <ul class="toolbox"></ul>
+
+        <h2>Properties</h2>
+        <form class="properties"></form>
+
     </aside>
 
     <header>
@@ -138,12 +163,30 @@
 
     </article>
 
+    <script type="text/html" id="property-form-template">
+        <% for (var attribute in attributes) { %>
+        <input type="text" name="<%= attribute %>" value="<%= attributes[attribute] %>" />
+        <% } %>
+    </script>
+
     <script type="text/html" id="button-template">
          <div class="button" data-editable="true" data-attribute="text">Button</div>
     </script>
 
     <script type="text/html" id="checkbox-template">
         <div class="checkbox"></div>
+    </script>
+
+    <script type="text/html" id="table-template">
+        <table>
+            <% for (var i=0; i < rows; i++ ) { %>
+                <tr>
+                    <% for (var j=0; j < columns; j++ ) { %>
+                        <td><input type="text" data-row="<%= i %>" data-column="<%= j %>" value="<%=  values[i][j]  %>" /></td>
+                    <% } %>
+                </tr>
+            <% } %>
+        </table>
     </script>
 
 
@@ -157,25 +200,49 @@
             models: {},
             collections: {},
             views: {},
-            tools: []
+            toolbox: []
         }
     </script>
 
+    <script src="{{ STATIC_URL }}js/models/mockup.js"></script>
     <script src="{{ STATIC_URL }}js/models/toolbox.js"></script>
     <script src="{{ STATIC_URL }}js/views/document.js"></script>
     <script src="{{ STATIC_URL }}js/views/toolbox.js"></script>
     <script src="{{ STATIC_URL }}js/views/mockup.js"></script>
+    <script src="{{ STATIC_URL }}js/views/properties.js"></script>
 
     <script type="text/javascript">
 
 
-        usemockups.tools = new usemockups.collections.Tools([{
+        usemockups.toolbox = new usemockups.collections.Toolbox([{
             "name": "button",
             "template": "#button-template"
         },{
             "name": "checkbox",
             "template": "#checkbox-template"
+        },{
+            "name": "table",
+            "template": "#table-template",
+            "attributes": [{
+                "name": "rows",
+                "default": "3"
+            },{
+                "name": "columns",
+                "default": "3"
+            },{
+                "name": "values",
+                "editable": false,
+                "default": [
+                    [1, 2, 3],
+                    [1, 2, 3],
+                    [1, 2, 3]
+                ]
+            }]
         }]);
+
+        usemockups.custom_mockup_views = {
+            "table": usemockups.views.TableMockup
+        };
 
 
         $(function () {
