@@ -99,47 +99,72 @@
             background-position: -300px -7px;
         }
 
+        aside form {
+
+        }
+
+            aside form input {
+                width: 80%;
+                margin: 1px 10px 10px;
+                background-color: #313131;
+                border: 1px solid #222222;
+                color: white;
+                outline: none;
+                padding: 2px 4px;
+            }
+
+            aside form label {
+                color: #484848;
+                margin-left: 10px;
+            }
+
 
         .object {
             position: absolute !important; /* prevent jquery ui draggable position definition */
         }
 
-        .object .button {
-            width: 100%;
-            height: 100%;
-            background-color: #e8e8e8;
-            color: #292929;
-            border-radius: 5px;
-            padding: 2px 5px;
-            text-align: center;
-            font-weight: normal;
-            border: 3px solid #292929;
-        }
+            .object .button {
+                width: 100%;
+                height: 100%;
+                background-color: #e8e8e8;
+                color: #292929;
+                border-radius: 5px;
+                padding: 2px 5px;
+                text-align: center;
+                font-weight: normal;
+                border: 3px solid #292929;
+            }
 
-        .object .checkbox {
-            width: 20px;
-            height: 20px;
-            background-color: #e8e8e8;
-            border: 3px solid #292929;
+            .object .checkbox {
+                width: 20px;
+                height: 20px;
+                background-color: #e8e8e8;
+                border: 3px solid #292929;
 
-        }
+            }
 
-        .object table {
-            background-color: #e8e8e8;
-            border: 3px solid #292929;
+            .object table {
+                background-color: #e8e8e8;
+                border: 3px solid #292929;
 
-        }
+            }
 
-        .object table td {
-            padding: 5px;
-        }
+            .object table td {
+                padding: 5px;
+            }
 
-        .object table th {
-            text-align: center;
-            padding: 3px 5px;
-            background-color: #292929;
-            color: white;
-        }
+            .object table th {
+                text-align: center;
+                padding: 3px 5px;
+                background-color: #292929;
+                color: white;
+            }
+
+            .object table input {
+                width: 95%;
+                background-color: transparent;
+                border: none;
+            }
 
     </style>
 </head>
@@ -165,12 +190,13 @@
 
     <script type="text/html" id="property-form-template">
         <% for (var attribute in attributes) { %>
-        <input type="text" name="<%= attribute %>" value="<%= attributes[attribute] %>" />
+        <label for="id_<%= attribute %>"><%= attribute %></label>
+        <input type="text" id="id_<%= attribute %>" name="<%= attribute %>" value="<%= attributes[attribute] %>" />
         <% } %>
     </script>
 
     <script type="text/html" id="button-template">
-         <div class="button" data-editable="true" data-attribute="text">Button</div>
+         <div class="button" data-editable="true" data-attribute="text"><%= text %></div>
     </script>
 
     <script type="text/html" id="checkbox-template">
@@ -178,7 +204,7 @@
     </script>
 
     <script type="text/html" id="table-template">
-        <table>
+        <table width="<%= width %>">
             <% for (var i=0; i < rows; i++ ) { %>
                 <tr>
                     <% for (var j=0; j < columns; j++ ) { %>
@@ -216,7 +242,11 @@
 
         usemockups.toolbox = new usemockups.collections.Toolbox([{
             "name": "button",
-            "template": "#button-template"
+            "template": "#button-template",
+            "attributes": [{
+                "name": "text",
+                "default": "Button"
+            }]
         },{
             "name": "checkbox",
             "template": "#checkbox-template"
@@ -224,6 +254,9 @@
             "name": "table",
             "template": "#table-template",
             "attributes": [{
+                "name": "width",
+                "default": "250px"
+            },{
                 "name": "rows",
                 "default": "3"
             },{
@@ -233,9 +266,9 @@
                 "name": "values",
                 "editable": false,
                 "default": [
-                    [1, 2, 3],
-                    [1, 2, 3],
-                    [1, 2, 3]
+                    ["lorem", "ipsum", "dolor"],
+                    ["sit", "amet", "lorem"],
+                    ["ipsum", "dolor", "sit"]
                 ]
             }]
         }]);

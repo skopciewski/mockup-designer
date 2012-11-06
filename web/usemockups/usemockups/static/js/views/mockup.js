@@ -27,7 +27,13 @@ usemockups.views.Mockup = Backbone.View.extend({
         return this;
     },
     show_property_dialog: function () {
-        (new usemockups.views.PropertyDialog({
+
+        if (usemockups.active_property_dialog &&
+            usemockups.active_property_dialog.model === this.model) {
+            return;
+        }
+
+        usemockups.active_property_dialog = (new usemockups.views.PropertyDialog({
             "model": this.model
         })).render()
     }
@@ -47,8 +53,8 @@ usemockups.views.TableMockup = usemockups.views.Mockup.extend({
         this.$el.find("input").change(function (event) {
             var input = $(event.target);
             var values = this.model.get("values");
-            values[input.data("row")][input.data("column")] = input.val();
-            this.model.set("values", values)
+            values[input.data("row")][input.data("column")] = input.val() || "";
+            this.model.set("values", values);
         }.bind(this));
         return this;
     },
