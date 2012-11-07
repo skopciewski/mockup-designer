@@ -23,6 +23,14 @@ usemockups.views.Mockup = Backbone.View.extend({
                     })
                 }.bind(this)
             }).html(_.template(this.template, this.model.get_attributes()));
+
+        this.$el.find("[data-attribute]").change(function (event) {
+            var input = $(event.target);
+            this.model.set(input.data("attribute"), input.val());
+        }.bind(this)).keyup(function (event) {
+            usemockups.active_property_dialog.trigger("update", $(event.target));
+        }.bind(this));
+
         this.show_property_dialog();
         return this;
     },

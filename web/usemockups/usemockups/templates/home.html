@@ -91,7 +91,7 @@
             background-position: -180px -9px;
         }
 
-        .toolbox .select {
+        .toolbox .combobox {
             background-position: -240px -5px;
         }
 
@@ -111,6 +111,7 @@
                 color: white;
                 outline: none;
                 padding: 2px 4px;
+
             }
 
             aside form label {
@@ -123,9 +124,17 @@
             position: absolute !important; /* prevent jquery ui draggable position definition */
         }
 
-            .object .button {
+            .object input {
                 width: 100%;
-                height: 100%;
+                margin: 0;
+                padding: 0;
+                background-color: transparent;
+                border: none;
+                outline: none;
+                text-align: center;
+            }
+
+            .object .button {
                 background-color: #e8e8e8;
                 color: #292929;
                 border-radius: 5px;
@@ -140,7 +149,15 @@
                 height: 20px;
                 background-color: #e8e8e8;
                 border: 3px solid #292929;
+                border-radius: 20%;
+            }
 
+            .object .radio {
+                width: 20px;
+                height: 20px;
+                background-color: #e8e8e8;
+                border: 3px solid #292929;
+                border-radius: 50%;
             }
 
             .object table {
@@ -149,22 +166,42 @@
 
             }
 
-            .object table td {
-                padding: 5px;
-            }
+                .object table td {
+                    padding: 5px;
+                }
 
-            .object table th {
+                .object table th {
+                    text-align: center;
+                    padding: 3px 5px;
+                    background-color: #292929;
+                    color: white;
+                }
+
+                .object table input {
+                    width: 95%;
+                }
+
+            .object .combobox {
+                width: 100%;
+                background-color: #e8e8e8;
+                border: 3px solid #292929;
                 text-align: center;
-                padding: 3px 5px;
-                background-color: #292929;
-                color: white;
+                overflow: hidden;
+                min-width: 120px;
             }
+                .object .combobox .text {
+                    float: left;
+                    width: 70%;
+                    padding: 3px 5px 3px;
+                }
 
-            .object table input {
-                width: 95%;
-                background-color: transparent;
-                border: none;
-            }
+                .object .combobox .opener {
+                    padding: 3px;
+                    width: 15px;
+                    text-indent: -9999px;
+                    float: right;
+                    background: url(/static/images/icons.png) -360px 0 #292929;
+                }
 
     </style>
 </head>
@@ -196,15 +233,28 @@
     </script>
 
     <script type="text/html" id="button-template">
-         <div class="button" data-editable="true" data-attribute="text"><%= text %></div>
+         <div class="button" style="width: <%= width %>px" data-editable="true" data-attribute="text">
+             <input type="text" data-attribute="text" name="text" value="<%= text %>">
+         </div>
     </script>
 
     <script type="text/html" id="checkbox-template">
         <div class="checkbox"></div>
     </script>
 
+    <script type="text/html" id="radio-template">
+        <div class="radio"></div>
+    </script>
+
+    <script type="text/html" id="combobox-template">
+        <div class="combobox" style="width: <%= width %>px">
+            <span class="text"><input type="text" data-attribute="text" name="text" value="<%= text %>"></span>
+            <span class="opener">open</span>
+        </div>
+    </script>
+
     <script type="text/html" id="table-template">
-        <table width="<%= width %>">
+        <table width="<%= width %>px">
             <% for (var i=0; i < rows; i++ ) { %>
                 <tr>
                     <% for (var j=0; j < columns; j++ ) { %>
@@ -246,16 +296,35 @@
             "attributes": [{
                 "name": "text",
                 "default": "Button"
+            },{
+                "name": "width",
+                "default": 80
             }]
         },{
             "name": "checkbox",
             "template": "#checkbox-template"
         },{
+            "name": "combobox",
+            "template": "#combobox-template",
+            "attributes": [
+                {
+                    "name": "text",
+                    "default": "Combobox"
+                },
+                {
+                    "name": "width",
+                    "default": 120
+                }
+            ]
+        },{
+            "name": "radio",
+            "template": "#radio-template"
+        },{
             "name": "table",
             "template": "#table-template",
             "attributes": [{
                 "name": "width",
-                "default": "250px"
+                "default": 250
             },{
                 "name": "rows",
                 "default": "3"
