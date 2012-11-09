@@ -75,6 +75,16 @@
             text-indent: -900px;
         }
 
+        .toolbox li span {
+            color: #565656;
+            font-size: 20px;
+            font-weight: bolder;
+            text-shadow: -1px -1px black;
+            display: inline-block;
+            margin-top: 7px;
+            cursor: default;
+        }
+
         .toolbox .button {
             background-position: 0 -7px;
         }
@@ -99,6 +109,13 @@
             background-position: -300px -7px;
         }
 
+        .toolbox .heading, .toolbox .paragraph {
+            background-image: none;
+            text-indent: 0;
+
+        }
+
+
         aside form {
 
         }
@@ -119,9 +136,10 @@
                 margin-left: 10px;
             }
 
-
         .object {
             position: absolute !important; /* prevent jquery ui draggable position definition */
+            cursor: move;
+            outline: none;
         }
 
             .object input {
@@ -131,7 +149,7 @@
                 background-color: transparent;
                 border: none;
                 outline: none;
-                text-align: center;
+                cursor: text;
             }
 
             .object .button {
@@ -142,6 +160,10 @@
                 text-align: center;
                 font-weight: normal;
                 border: 3px solid #292929;
+            }
+
+            .object .button input {
+                text-align: center;
             }
 
             .object .checkbox {
@@ -163,6 +185,7 @@
             .object table {
                 background-color: #e8e8e8;
                 border: 3px solid #292929;
+                width: 100%;
 
             }
 
@@ -184,7 +207,6 @@
             .object .combobox {
                 width: 100%;
                 background-color: #e8e8e8;
-                border: 3px solid #292929;
                 text-align: center;
                 overflow: hidden;
                 min-width: 120px;
@@ -202,6 +224,42 @@
                     float: right;
                     background: url(/static/images/icons.png) -360px 0 #292929;
                 }
+
+            .object.preview .heading {
+                width: 400px;
+            }
+
+            .object .heading {
+                margin: 0;
+            }
+
+            .object .paragraph {
+                width: 100%;
+            }
+
+            .object.preview .paragraph {
+                width: 300px;
+            }
+
+                .object .paragraph p {
+                    padding: 5px;
+                    margin: 0;
+                }
+
+
+            .ui-resizable-handle {
+                bottom: -4px;
+                right: -4px;
+                border-radius: 50%;
+                background-color: orange;
+                height: 10px;
+                width: 10px;
+                visibility: hidden;
+            }
+
+            .object:focus .ui-resizable-handle {
+                visibility: visible;
+            }
 
     </style>
 </head>
@@ -233,9 +291,7 @@
     </script>
 
     <script type="text/html" id="button-template">
-         <div class="button" style="width: <%= width %>px" data-editable="true" data-attribute="text">
-             <input type="text" data-attribute="text" name="text" value="<%= text %>">
-         </div>
+         <div class="button" data-attribute="text" data-editable="true"><%= text %></div>
     </script>
 
     <script type="text/html" id="checkbox-template">
@@ -246,15 +302,25 @@
         <div class="radio"></div>
     </script>
 
+    <script type="text/html" id="heading-template">
+        <h1 class="heading" data-attribute="text" style="font-size: <%= size %>px; color: <%= color %>"><%= text %></h1>
+    </script>
+
+    <script type="text/html" id="paragraph-template">
+        <div class="paragraph" style="background-color: <%= background %>">
+            <p data-attribute="text"><%= text %></p>
+        </div>
+    </script>
+
     <script type="text/html" id="combobox-template">
-        <div class="combobox" style="width: <%= width %>px">
-            <span class="text"><input type="text" data-attribute="text" name="text" value="<%= text %>"></span>
+        <div class="combobox">
+            <span class="text" data-attribute="text"><%= text %></span>
             <span class="opener">open</span>
         </div>
     </script>
 
     <script type="text/html" id="table-template">
-        <table width="<%= width %>px">
+        <table>
             <% for (var i=0; i < rows; i++ ) { %>
                 <tr>
                     <% for (var j=0; j < columns; j++ ) { %>
@@ -319,7 +385,45 @@
         },{
             "name": "radio",
             "template": "#radio-template"
+        },
+        {
+            "name": "heading",
+            "label": "h1",
+            "template": "#heading-template",
+            "attributes": [
+                {
+                    "name": "text",
+                    "default": "Lorem ipsum dolor sit amet"
+                },
+                {
+                    "name": "size",
+                    "default": "25"
+                },
+                {
+                    "name": "color",
+                    "default": "black"
+                }
+            ]
         },{
+                "name": "paragraph",
+                "label": "p",
+                "template": "#paragraph-template",
+                "attributes": [
+                    {
+                        "name": "text",
+                        "default": "Lorem ipsum dolor sit amet"
+                    },
+                    {
+                        "name": "width",
+                        "default": 300
+                    },
+                    {
+                        "name": "background",
+                        "default": "#dedede"
+                    }
+                ]
+            },
+        {
             "name": "table",
             "template": "#table-template",
             "attributes": [{

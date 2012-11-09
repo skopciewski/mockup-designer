@@ -1,5 +1,8 @@
 usemockups.views.Page = Backbone.View.extend({
     "el": "article",
+
+    mockup_count: 0,
+
     render: function () {
         this.$el.droppable({
             accept: ".toolbox li",
@@ -15,26 +18,40 @@ usemockups.views.Page = Backbone.View.extend({
                     tool: tool_name
                 });
 
-                var mockup_view = usemockups.custom_mockup_views[tool_name]
-                                || usemockups.views.Mockup;
-
-                this.$el.append(new mockup_view({
+                var mockup_view = new (this.get_mockup_view(tool_name))({
                     model: mockup
-                }).render().el);
+                });
+
+                this.$el.append(mockup_view.render().el);
+
+                if (mockup.is_resizable())
+                    mockup_view.make_resizable();
+
+                mockup_view.$el.attr("tabindex", this.mockup_count++);
+
+                mockup_view.focus();
+
 
             }.bind(this)
         })
+    },
+
+    get_mockup_view: function (tool_name) {
+        return usemockups.custom_mockup_views[tool_name] ||
+               usemockups.views.Mockup;
     }
 });
 
 
 usemockups.views.Document = Backbone.View.extend({
     el: "body",
+
     render: function () {
 
         _.forEach(usemockups.toolbox.models, function (tool) {
 
-            $("<li>").addClass(tool.get("name")).data("tool", tool.get("name")).appendTo(
+            $("<li>").addClass(tool.get("name"))
+                .data("tool", tool.get("name")).html("<span>" + tool.get("label") || tool.get("name") + "</span>").appendTo(
                 this.$el.find(".toolbox"));
 
         }, this);
