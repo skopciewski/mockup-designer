@@ -1,8 +1,9 @@
 usemockups.models.Tool = Backbone.Model.extend({
     idAttribute: "name",
     defaults: {
-        resizable: true,
-        attributes: []
+        attributes: [],
+        min_width: 50,
+        min_height: 50
     },
     initialize: function () {
     },

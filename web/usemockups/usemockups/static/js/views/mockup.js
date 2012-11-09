@@ -84,7 +84,9 @@ usemockups.views.Mockup = Backbone.View.extend({
                     this.model.set("width", ui.size.width);
                 if (this.model.has("height"))
                     this.model.set("height", ui.size.height)
-            }.bind(this)
+            }.bind(this),
+            minWidth: this.tool.get("min_width"),
+            minHeight: this.tool.get("min_height")
         });
 
         this.$el.find("")
