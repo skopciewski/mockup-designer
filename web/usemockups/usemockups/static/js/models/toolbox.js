@@ -10,7 +10,7 @@ usemockups.models.Tool = Backbone.Model.extend({
     get_attributes: function (mockup) {
         var attributes = {};
         _.forEach(this.get("attributes"), function (attribute) {
-            var default_value;
+            var value, default_value;
 
             if (_.isArray(attribute.default)) {
                 // deep copy for multi dimensional arrays.
@@ -20,7 +20,13 @@ usemockups.models.Tool = Backbone.Model.extend({
                 default_value = attribute.default;
             }
 
-            attributes[attribute.name] = (mockup || this).get(attribute.name) || default_value;
+            if (mockup)
+                value = mockup.get(attribute.name);
+
+            if (value === undefined)
+                value = default_value;
+
+            attributes[attribute.name] = value;
 
         }, this);
         return attributes;

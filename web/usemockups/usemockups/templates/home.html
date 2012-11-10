@@ -284,18 +284,27 @@
     </article>
 
     <script type="text/html" id="property-form-template">
-        <% for (var attribute in attributes) { %>
-        <label for="id_<%= attribute %>"><%= attribute %></label>
-        <input type="text" id="id_<%= attribute %>" name="<%= attribute %>" value="<%= attributes[attribute] %>" />
+    <% for (var attribute in attributes) { %>
+        <label for="id_<%= attributes[attribute].name %>"><%= attributes[attribute].name %></label>
+
+        <% if (attributes[attribute].type == "boolean") { %>
+            <input type="checkbox" id="id_<%= attributes[attribute].name %>"
+               name="<%= attributes[attribute].name %>"
+               <% if (attributes[attribute].value) { %> checked="checked" <% } %> />
+        <% } else { %>
+            <input type="text" id="id_<%= attributes[attribute].name %>"
+               name="<%= attributes[attribute].name %>"
+               value="<%= attributes[attribute].value %>" />
         <% } %>
+    <% } %>
     </script>
 
     <script type="text/html" id="button-template">
-         <div class="button" data-attribute="text" data-editable="true"><%= text %></div>
+         <div class="button" data-attribute="text"><%= text %></div>
     </script>
 
     <script type="text/html" id="checkbox-template">
-        <div class="checkbox"></div>
+        <div class="checkbox <%= checked ? 'checked' : '' %>"></div>
     </script>
 
     <script type="text/html" id="radio-template">
@@ -368,7 +377,14 @@
             }]
         },{
             "name": "checkbox",
-            "template": "#checkbox-template"
+            "template": "#checkbox-template",
+            "attributes": [
+                {
+                    "name": "checked",
+                    "type": "boolean",
+                    "default": true
+                }
+            ]
         },{
             "name": "combobox",
             "template": "#combobox-template",
