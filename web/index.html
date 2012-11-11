@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Use mockups</title>
+    <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+    <link type="text/css" rel="stylesheet" href="static/css/h5bp.css" />
+    <link type="text/css" rel="stylesheet" href="static/css/screen.css" />
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+
+    <aside>
+
+
+    </aside>
+
+    <header>
+        <h1>Usemockups sketches</h1>
+    </header>
+
+    <article style="width: 960px; height: 1200px;">
+
+
+    </article>
+
+    <footer>
+        <h2>Properties</h2>
+        <form class="properties"></form>
+    </footer>
+
+    <script type="text/html" id="property-form-template">
+    <% for (var attribute in attributes) { %>
+        <div class="line">
+        <label for="id_<%= attributes[attribute].name %>"><%= attributes[attribute].name %></label>
+
+        <% if (attributes[attribute].type == "boolean") { %>
+            <input type="checkbox" id="id_<%= attributes[attribute].name %>"
+               name="<%= attributes[attribute].name %>"
+               <% if (attributes[attribute].value) { %> checked="checked" <% } %> />
+        <% } else { %>
+            <input type="text" id="id_<%= attributes[attribute].name %>"
+               name="<%= attributes[attribute].name %>"
+               value="<%= attributes[attribute].value %>" />
+        <% } %>
+        </div>
+    <% } %>
+    </script>
+
+    <script type="text/html" id="button-template">
+         <div class="button" data-attribute="text"><%= text %></div>
+    </script>
+
+    <script type="text/html" id="checkbox-template">
+        <div class="checkbox <%= checked ? 'checked' : '' %>">
+
+        </div>
+    </script>
+
+    <script type="text/html" id="radio-template">
+        <div class="radio <%= checked ? 'checked' : '' %>"></div>
+    </script>
+
+    <script type="text/html" id="heading-template">
+        <h1 class="heading" data-attribute="text" style="font-size: <%= size %>px; color: <%= color %>"><%= text %></h1>
+    </script>
+
+    <script type="text/html" id="paragraph-template">
+        <div class="paragraph" style="background-color: <%= background %>">
+            <p data-attribute="text"><%= text %></p>
+        </div>
+    </script>
+
+    <script type="text/html" id="label-template">
+        <strong data-attribute="text"><%= text %></strong>
+    </script>
+
+    <script type="text/html" id="combobox-template">
+        <div class="combobox">
+            <span class="text" data-attribute="text"><%= text %></span>
+            <span class="opener"></span>
+        </div>
+    </script>
+
+    <script type="text/html" id="table-template">
+        <table>
+            <% for (var i=0; i < rows; i++ ) { %>
+                <tr>
+                    <% for (var j=0; j < columns; j++ ) { %>
+                        <td><input type="text" data-row="<%= i %>" data-column="<%= j %>" value="<%=  values[i] ? values[i][j] : ''  %>" /></td>
+                    <% } %>
+                </tr>
+            <% } %>
+        </table>
+    </script>
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js"></script>
+
+    <script type="text/javascript">
+        var usemockups = {
+            models: {},
+            collections: {},
+            views: {},
+            toolbox: []
+        }
+    </script>
+    <script src="static/js/persistance/local-storage.js"></script>
+
+    <script src="static/js/models/document.js"></script>
+    <script src="static/js/models/mockup.js"></script>
+    <script src="static/js/models/toolbox.js"></script>
+    <script src="static/js/views/document.js"></script>
+    <script src="static/js/views/toolbox.js"></script>
+    <script src="static/js/views/mockup.js"></script>
+    <script src="static/js/views/properties.js"></script>
+
+    <script type="text/javascript">
+
+
+        usemockups.toolbox = new usemockups.collections.Toolbox([{
+            "name": "button",
+            "category": "form",
+            "template": "#button-template",
+            "attributes": [{
+                "name": "text",
+                "default": "Button"
+            },{
+                "name": "width",
+                "default": 80
+            }]
+        },{
+            "name": "checkbox",
+            "category": "form",
+            "template": "#checkbox-template",
+            "attributes": [
+                {
+                    "name": "checked",
+                    "type": "boolean",
+                    "default": true
+                }
+            ]
+        },{
+            "name": "combobox",
+            "category": "form",
+            "template": "#combobox-template",
+            "attributes": [
+                {
+                    "name": "text",
+                    "default": "Combobox"
+                },
+                {
+                    "name": "width",
+                    "default": 120
+                }
+            ]
+        },{
+            "name": "radio",
+            "category": "form",
+            "template": "#radio-template",
+            "attributes": [
+                {
+                    "name": "checked",
+                    "type": "boolean",
+                    "default": true
+                }
+            ]
+        },
+        {
+            "name": "heading",
+            "category": "typography",
+            "template": "#heading-template",
+            "attributes": [
+                {
+                    "name": "text",
+                    "default": "Lorem ipsum dolor sit amet"
+                },
+                {
+                    "name": "size",
+                    "default": "25"
+                },
+                {
+                    "name": "color",
+                    "default": "black"
+                }
+            ]
+        },
+
+            {
+                "name": "paragraph",
+                "category": "typography",
+                "template": "#paragraph-template",
+                "attributes": [
+                    {
+                        "name": "text",
+                        "default": "Lorem ipsum dolor sit amet"
+                    },
+                    {
+                        "name": "width",
+                        "default": 300
+                    },
+                    {
+                        "name": "background",
+                        "default": "#dedede"
+                    }
+                ]
+            },
+
+            {
+                "name": "label",
+                "category": "typography",
+                "template": "#label-template",
+                "attributes": [
+                    {
+                        "name": "text",
+                        "default": "Label"
+                    }
+                ]
+            },
+
+        {
+            "name": "table",
+            "category": "content",
+            "template": "#table-template",
+            "attributes": [{
+                "name": "width",
+                "default": 250
+            },{
+                "name": "rows",
+                "default": "3"
+            },{
+                "name": "columns",
+                "default": "3"
+            },{
+                "name": "values",
+                "editable": false,
+                "default": [
+                    ["lorem", "ipsum", "dolor"],
+                    ["sit", "amet", "lorem"],
+                    ["ipsum", "dolor", "sit"]
+                ]
+            }]
+        }]);
+
+        usemockups.custom_mockup_views = {
+            "table": usemockups.views.TableMockup
+        };
+
+
+        $(function () {
+
+            usemockups.active_document = new usemockups.models.Document({
+                "id": "471e2e76-688b-79b8-3f94-d9f4f29319a3"
+            });
+
+            usemockups.active_document.fetch();
+
+            (new usemockups.views.Document({
+                model: usemockups.active_document
+            })).render();
+
+        });
+    </script>
+
+</body>
+</html>
