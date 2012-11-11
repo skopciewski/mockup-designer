@@ -101,6 +101,7 @@ usemockups.views.Mockup = Backbone.View.extend({
 
     show_property_dialog: function () {
 
+        $("footer").show()
 
         if (usemockups.active_property_dialog &&
             usemockups.active_property_dialog.model === this.model) {

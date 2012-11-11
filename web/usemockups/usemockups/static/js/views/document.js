@@ -33,7 +33,14 @@ usemockups.views.Page = Backbone.View.extend({
 
 
             }.bind(this)
+        });
+
+        this.$el.click(function (event) {
+            if ($(event.target).is("article")) {
+                $("footer").hide()
+            }
         })
+
     },
 
     get_mockup_view: function (tool_name) {
@@ -47,25 +54,9 @@ usemockups.views.Document = Backbone.View.extend({
     el: "body",
 
     render: function () {
-
-        _.forEach(usemockups.toolbox.models, function (tool) {
-
-            $("<li>").addClass(tool.get("name"))
-                .data("tool", tool.get("name")).html("<span>" + (tool.get("label") || tool.get("name")) + "</span>").appendTo(
-                this.$el.find(".toolbox"));
-
-        }, this);
-
-
-        this.$el.find(".toolbox li").draggable({
-            cursor: "move",
-            stack: "article",
-            helper: function () {
-                return new usemockups.views.ToolPreview({
-                    tool: usemockups.toolbox.get($(this).data("tool"))}).render().el
-            }
-        });
-
+        (new usemockups.views.Toolbox({
+            model: usemockups.toolbox
+        })).render();
         (new usemockups.views.Page()).render();
     }
 });

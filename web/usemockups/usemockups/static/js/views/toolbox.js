@@ -1,3 +1,52 @@
+usemockups.views.Tool = Backbone.View.extend({
+    tagName: "li",
+    initialize: function () {
+        this.className = this.model.get("name")
+    },
+    get_label: function () {
+        return this.model.get("label") || this.model.get("name")
+    },
+    render: function () {
+
+        $("<span>").html(this.get_label()).appendTo(this.$el);
+
+        this.$el.draggable({
+            cursor: "move",
+            stack: "article",
+            cursorAt: { left: 10 },
+            helper: function () {
+                return new usemockups.views.ToolPreview({
+                    tool: usemockups.toolbox.get($(this).data("tool"))}).render().el
+            }
+        }).data("tool", this.model.get("name"));
+
+        return this;
+    }
+});
+
+usemockups.views.Toolbox = Backbone.View.extend({
+    el: "aside",
+    render: function () {
+
+        _.forEach(_.uniq(this.model.pluck("category")), function (category) {
+
+            $("<h2>").html(category).after(
+                $("<ul>").addClass("toolbox").addClass(category)).appendTo(this.$el);
+
+            // todo: create a view that named ToolboxCategory
+
+        }, this);
+
+        _.forEach(this.model.models, function (tool) {
+            (new usemockups.views.Tool({
+                model: tool
+            }).render().$el.appendTo(".toolbox." + tool.get("category")));
+        }, this);
+        return this;
+
+    }
+});
+
 usemockups.views.ToolPreview = Backbone.View.extend({
 
     tagName: "div",

@@ -1,10 +1,12 @@
 usemockups.views.PropertyDialog = Backbone.View.extend({
-    el: "aside form",
+    el: "footer form",
     template: $("#property-form-template").html(),
     initialize: function () {
         this.on("update", this.update_for_attribute);
     },
     render: function () {
+
+        $("footer").show();
 
         this.$el.html(_.template(this.template, {
             "attributes": this.get_attributes()

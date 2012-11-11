@@ -6,127 +6,136 @@
     <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
     <style type="text/css">
         body {
-            background-image: url(/static/images/background.png);
-
+            background: #5a5a5a;
         }
 
         aside {
-            background-color: #2c2c2c;
             position: fixed;
-            width: 210px;
+            width: 160px;
             height: 100%;
-            top: 0;
-            box-shadow: 0 0 30px gray;
+            top: 100px;
+            left: 10px;
 
         }
 
             aside h2 {
-                padding: 0 5px;
-                margin: 10px 10px;
+                cursor: default;
+                padding: 2px 7px;
                 font-weight: normal;
                 font-size: 18px;
-                border-left: 5px solid #6CF;
-                color: white;
+                text-align: right;
+                color: #fff;
+                background-color: #f35b8e;
+                float: right;
+                border-right: solid 4px #bf4870;
+
+                margin: 0 8px 2px;
+
             }
 
             aside .toolbox {
-                margin: 3px;
+                clear: both;
+                margin-top: 0;
+                margin-bottom: 40px;
+                margin-right: 3px;
                 padding: 0;
-                height: 50%;
             }
 
             aside .toolbox li {
-                margin: 3px 5px;
-                padding: 4px 10px;
+                margin: 2px 5px;
                 list-style: none;
-                background-color: #292929;
-                color: white;
                 font-size: 12px;
-                text-align: left;
-                border: 1px solid #292929;
-                float: left;
+                text-align: right;
+
+            }
+
+            aside .toolbox li:after {
+                content: "";
+                clear: both;
             }
 
             aside .toolbox li span {
-                color: #565656;
+                padding: 4px 10px;
+                background-color: #f3ef56;
+                color: #303030;
                 font-size: 18px;
-                font-weight: bolder;
-                text-shadow: -1px -1px black;
+                font-weight: bold;
                 display: inline-block;
                 cursor: default;
+                border-right: 4px solid #d2ce4a;
+                cursor: move;
+
             }
 
         article {
-            background-color: white;
-            margin: 80px 0 50px 250px;
-            box-shadow: 0 0 20px #c6c6c6;
+            background: white url(/static/images/paper.png);
+            margin: 80px 0 50px 162px;
 
         }
 
         header {
             position: absolute;
             top: 20px;
-            left: 250px;
+            left: 170px;
         }
 
         header h1 {
             margin: 0;
             padding: 0;
             font-size: 30px;
-            color: #484848;
+            color: #e8e8e8;
+            font-weight: normal;
         }
 
 
 
-        .toolbox .button {
-            background-position: 0 -7px;
+        footer {
+            display: none;
+            position: fixed;
+            bottom: 0;
+
+            background-color: white;
+            width: 100%;
+            border-top: 10px solid #f2ee55;
         }
 
-        .toolbox .checkbox {
-            background-position: -60px -7px;
-        }
-
-        .toolbox .radio {
-            background-position: -120px -7px;
-        }
-
-        .toolbox .scroll {
-            background-position: -180px -9px;
-        }
-
-        .toolbox .combobox {
-            background-position: -240px -5px;
-        }
-
-        .toolbox .table {
-            background-position: -300px -7px;
-        }
-
-        .toolbox .heading, .toolbox .paragraph, .toolbox .label {
-            background-image: none;
-            text-indent: 0;
+        footer form {
 
         }
 
+            footer > * {
+                width: 960px;
+                margin: 0 auto;
+            }
 
-        aside form {
+            footer h2 {
+                margin: 5px auto;
+                padding: 4px;
+                color: gray;
+                font-weight: normal;
 
-        }
+            }
 
-            aside form input {
-                width: 80%;
-                margin: 1px 10px 10px;
-                background-color: #313131;
-                border: 1px solid #222222;
-                color: white;
+            footer form {
+            }
+
+            footer form .line {
+                width: 200px;
+                float: left;
+                margin-right: 30px;
+                margin-left: 2px;
+                padding-bottom: 20px;
+            }
+
+            footer form input {
+                width: 100%;
                 outline: none;
                 padding: 2px 4px;
 
             }
 
-            aside form label {
+            footer form label {
                 color: #484848;
-                margin-left: 10px;
             }
 
         .object {
@@ -295,11 +304,7 @@
 <body>
 
     <aside>
-        <h2>Toolbox</h2>
-        <ul class="toolbox"></ul>
 
-        <h2>Properties</h2>
-        <form class="properties"></form>
 
     </aside>
 
@@ -312,8 +317,14 @@
 
     </article>
 
+    <footer>
+        <h2>Properties</h2>
+        <form class="properties"></form>
+    </footer>
+
     <script type="text/html" id="property-form-template">
     <% for (var attribute in attributes) { %>
+        <div class="line">
         <label for="id_<%= attributes[attribute].name %>"><%= attributes[attribute].name %></label>
 
         <% if (attributes[attribute].type == "boolean") { %>
@@ -325,6 +336,7 @@
                name="<%= attributes[attribute].name %>"
                value="<%= attributes[attribute].value %>" />
         <% } %>
+        </div>
     <% } %>
     </script>
 
@@ -402,6 +414,7 @@
 
         usemockups.toolbox = new usemockups.collections.Toolbox([{
             "name": "button",
+            "category": "form",
             "template": "#button-template",
             "attributes": [{
                 "name": "text",
@@ -412,6 +425,7 @@
             }]
         },{
             "name": "checkbox",
+            "category": "form",
             "template": "#checkbox-template",
             "attributes": [
                 {
@@ -422,6 +436,7 @@
             ]
         },{
             "name": "combobox",
+            "category": "form",
             "template": "#combobox-template",
             "attributes": [
                 {
@@ -435,6 +450,7 @@
             ]
         },{
             "name": "radio",
+            "category": "form",
             "template": "#radio-template",
             "attributes": [
                 {
@@ -446,7 +462,7 @@
         },
         {
             "name": "heading",
-            "label": "h1",
+            "category": "typography",
             "template": "#heading-template",
             "attributes": [
                 {
@@ -466,7 +482,7 @@
 
             {
                 "name": "paragraph",
-                "label": "p",
+                "category": "typography",
                 "template": "#paragraph-template",
                 "attributes": [
                     {
@@ -486,7 +502,7 @@
 
             {
                 "name": "label",
-                "label": "a",
+                "category": "typography",
                 "template": "#label-template",
                 "attributes": [
                     {
@@ -498,6 +514,7 @@
 
         {
             "name": "table",
+            "category": "content",
             "template": "#table-template",
             "attributes": [{
                 "name": "width",
