@@ -36,17 +36,24 @@
             }
 
             aside .toolbox li {
-                margin: 2px;
-                padding: 0;
-                float: left;
-                width: 60px;
-                height: 40px;
+                margin: 3px 5px;
+                padding: 4px 10px;
                 list-style: none;
                 background-color: #292929;
                 color: white;
                 font-size: 12px;
-                text-align: center;
+                text-align: left;
                 border: 1px solid #292929;
+                float: left;
+            }
+
+            aside .toolbox li span {
+                color: #565656;
+                font-size: 18px;
+                font-weight: bolder;
+                text-shadow: -1px -1px black;
+                display: inline-block;
+                cursor: default;
             }
 
         article {
@@ -70,20 +77,6 @@
         }
 
 
-        .toolbox li {
-            background: url(/static/images/icons.png);
-            text-indent: -900px;
-        }
-
-        .toolbox li span {
-            color: #565656;
-            font-size: 20px;
-            font-weight: bolder;
-            text-shadow: -1px -1px black;
-            display: inline-block;
-            margin-top: 7px;
-            cursor: default;
-        }
 
         .toolbox .button {
             background-position: 0 -7px;
@@ -109,7 +102,7 @@
             background-position: -300px -7px;
         }
 
-        .toolbox .heading, .toolbox .paragraph {
+        .toolbox .heading, .toolbox .paragraph, .toolbox .label {
             background-image: none;
             text-indent: 0;
 
@@ -174,6 +167,25 @@
                 border-radius: 20%;
             }
 
+                .object .checkbox.checked:after {
+                    content: '';
+                    position: absolute;
+                    width: 11px;
+                    height: 5px;
+                    background: transparent;
+                    top: 7px;
+                    left: 6px;
+
+                    border-left: 3px solid black;
+                    border-bottom: 3px solid black;
+
+                    -webkit-transform: rotate(-45deg);
+                    -moz-transform: rotate(-45deg);
+                    -o-transform: rotate(-45deg);
+                    -ms-transform: rotate(-45deg);
+                    transform: rotate(-45deg);
+                }
+
             .object .radio {
                 width: 20px;
                 height: 20px;
@@ -181,6 +193,17 @@
                 border: 3px solid #292929;
                 border-radius: 50%;
             }
+
+                .object .radio.checked:after {
+                    position: absolute;
+                    left: 7px;
+                    top: 7px;
+                    content: "";
+                    width: 45%;
+                    height: 45%;
+                    background-color: #5a5a5a;
+                    border-radius: 50%;
+                }
 
             .object table {
                 background-color: #e8e8e8;
@@ -207,9 +230,10 @@
             .object .combobox {
                 width: 100%;
                 background-color: #e8e8e8;
-                text-align: center;
                 overflow: hidden;
                 min-width: 120px;
+                border: 3px solid #292929;
+                border-radius: 5px;
             }
                 .object .combobox .text {
                     float: left;
@@ -218,11 +242,16 @@
                 }
 
                 .object .combobox .opener {
-                    padding: 3px;
-                    width: 15px;
+                    position: absolute;
+                    right: 5px;
+                    top: 11px;
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
+                    border-width: 12px 8px 0 8px;
+                    border-color: #292929 transparent transparent transparent;
                     text-indent: -9999px;
-                    float: right;
-                    background: url(/static/images/icons.png) -360px 0 #292929;
+
                 }
 
             .object.preview .heading {
@@ -304,11 +333,13 @@
     </script>
 
     <script type="text/html" id="checkbox-template">
-        <div class="checkbox <%= checked ? 'checked' : '' %>"></div>
+        <div class="checkbox <%= checked ? 'checked' : '' %>">
+
+        </div>
     </script>
 
     <script type="text/html" id="radio-template">
-        <div class="radio"></div>
+        <div class="radio <%= checked ? 'checked' : '' %>"></div>
     </script>
 
     <script type="text/html" id="heading-template">
@@ -321,10 +352,14 @@
         </div>
     </script>
 
+    <script type="text/html" id="label-template">
+        <strong data-attribute="text"><%= text %></strong>
+    </script>
+
     <script type="text/html" id="combobox-template">
         <div class="combobox">
             <span class="text" data-attribute="text"><%= text %></span>
-            <span class="opener">open</span>
+            <span class="opener"></span>
         </div>
     </script>
 
@@ -400,7 +435,14 @@
             ]
         },{
             "name": "radio",
-            "template": "#radio-template"
+            "template": "#radio-template",
+            "attributes": [
+                {
+                    "name": "checked",
+                    "type": "boolean",
+                    "default": true
+                }
+            ]
         },
         {
             "name": "heading",
@@ -420,7 +462,9 @@
                     "default": "black"
                 }
             ]
-        },{
+        },
+
+            {
                 "name": "paragraph",
                 "label": "p",
                 "template": "#paragraph-template",
@@ -439,6 +483,19 @@
                     }
                 ]
             },
+
+            {
+                "name": "label",
+                "label": "a",
+                "template": "#label-template",
+                "attributes": [
+                    {
+                        "name": "text",
+                        "default": "Label"
+                    }
+                ]
+            },
+
         {
             "name": "table",
             "template": "#table-template",

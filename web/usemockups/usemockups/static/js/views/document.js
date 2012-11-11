@@ -51,7 +51,7 @@ usemockups.views.Document = Backbone.View.extend({
         _.forEach(usemockups.toolbox.models, function (tool) {
 
             $("<li>").addClass(tool.get("name"))
-                .data("tool", tool.get("name")).html("<span>" + tool.get("label") || tool.get("name") + "</span>").appendTo(
+                .data("tool", tool.get("name")).html("<span>" + (tool.get("label") || tool.get("name")) + "</span>").appendTo(
                 this.$el.find(".toolbox"));
 
         }, this);
