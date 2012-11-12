@@ -9,12 +9,12 @@ usemockups.views.Page = Backbone.View.extend({
         this.render_mockups()
     },
 
-    add_mockup: function (mockup) {
+    add_mockup: function (mockup, options) {
 
         var mockup_view = new (this.get_mockup_view(mockup.get("tool")))({
             model: mockup
         });
-        this.$el.append(mockup_view.render().el);
+        this.$el.append(mockup_view.render(options).el);
 
         if (mockup.is_resizable())
             mockup_view.make_resizable();
@@ -28,7 +28,12 @@ usemockups.views.Page = Backbone.View.extend({
     
     render_mockups: function () {
         this.$el.empty();
-        _.forEach(this.model.mockups.models, this.add_mockup, this);
+        _.forEach(this.model.mockups.models, function (model) {
+            this.add_mockup(model, {
+                focus: false,
+                show_property_dialog: false
+            })
+        }, this);
         this.model.mockups.off("reset")
     },
 

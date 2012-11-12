@@ -15,7 +15,12 @@ usemockups.views.Mockup = Backbone.View.extend({
         this.model.on("destroy", this.destroy, this)
 
     },
-    render: function () {
+    render: function (rendering_options) {
+
+        var options = _.extend({
+            focus: true,
+            show_property_dialog: true
+        }, rendering_options);
 
         this.$el.css({
             "top": this.model.get("top") + this.article.offset().top,
@@ -58,9 +63,11 @@ usemockups.views.Mockup = Backbone.View.extend({
             }
         }.bind(this));
 
-        this.show_property_dialog();
+        if (options.show_property_dialog)
+            this.show_property_dialog();
 
-        this.focus();
+        if (options.focus)
+            this.focus();
 
         return this;
     },
