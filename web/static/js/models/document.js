@@ -10,6 +10,7 @@ usemockups.models.Document = Backbone.Model.extend({
     },
     persist: function () {
         this.set("mockups", this.mockups.toJSON());
+        this.save();
     },
     parse: function (result) {
         if (this.mockups)

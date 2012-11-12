@@ -157,7 +157,7 @@ usemockups.views.NewDocumentForm = Backbone.View.extend({
 usemockups.views.Navigation = Backbone.View.extend({
     el: "nav",
     events: {
-        "click h2 a": "toggle_navigation"
+        "click h2": "toggle_navigation"
     },
     initialize: function () {
         this.model.on("reset", this.render, this);

@@ -99,11 +99,8 @@ nav {
         text-align: center;
         width: 170px;
         float: right;
-    }
-
-    nav h2 a {
         color: #e8e8e8;
-        text-decoration: none;
+        cursor: pointer;
     }
 
     nav h2:hover {
@@ -206,7 +203,17 @@ footer {
 
     footer form label {
     color: #484848;
-}
+    }
+
+    footer .line.delete {
+        float: right;
+        text-align: right;
+        margin-top: 37px;
+    }
+
+    footer a.delete {
+        color: gray;
+    }
 
 .object {
     position: absolute !important; /* prevent jquery ui draggable position definition */

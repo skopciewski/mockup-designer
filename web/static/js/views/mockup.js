@@ -12,6 +12,8 @@ usemockups.views.Mockup = Backbone.View.extend({
         this.tool = usemockups.toolbox.get(this.model.get("tool"));
         this.template = $(this.tool.get("template")).html();
 
+        this.model.on("destroy", this.destroy, this)
+
     },
     render: function () {
 
@@ -98,6 +100,8 @@ usemockups.views.Mockup = Backbone.View.extend({
 
     show_property_dialog: function () {
 
+        $("footer").show();
+
         if (usemockups.active_property_dialog &&
             usemockups.active_property_dialog.model === this.model) {
             return;
@@ -106,6 +110,10 @@ usemockups.views.Mockup = Backbone.View.extend({
         usemockups.active_property_dialog = (new usemockups.views.PropertyDialog({
             "model": this.model
         })).render()
+    },
+
+    destroy: function () {
+        this.$el.remove();
     }
 });
 

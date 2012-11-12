@@ -3,8 +3,11 @@ usemockups.views.PropertyDialog = Backbone.View.extend({
     template: $("#property-form-template").html(),
     initialize: function () {
         this.on("update", this.update_for_attribute);
+        this.model.on("destroy", this.hide, this);
     },
     render: function () {
+
+        $("footer").show();
 
         this.$el.html(_.template(this.template, {
             "attributes": this.get_attributes()
@@ -23,6 +26,13 @@ usemockups.views.PropertyDialog = Backbone.View.extend({
             this.model.set(input.attr("name"), value);
 
         }.bind(this));
+
+        this.$el.find("a.delete").click(function () {
+            if (window.confirm("Are you sure?"))
+                this.model.destroy();
+            return false;
+        }.bind(this));
+
         return this;
     },
     update_for_attribute: function (field) {
@@ -34,5 +44,8 @@ usemockups.views.PropertyDialog = Backbone.View.extend({
                 "value": this.model.get(attribute.name)
             }, attribute);
         },this)
+    },
+    hide: function () {
+        $("footer").hide();
     }
 });

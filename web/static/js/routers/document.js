@@ -15,6 +15,10 @@ usemockups.routers.Document = Backbone.Router.extend({
             usemockups.active_document_view.article.undelegateEvents();
         }
 
+        if (usemockups.active_property_dialog) {
+            usemockups.active_property_dialog.hide();
+        }
+
         usemockups.active_document_view = new usemockups.views.Document({
             model: document
         });
