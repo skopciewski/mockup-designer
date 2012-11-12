@@ -11,13 +11,25 @@
 </head>
 <body>
 
+    <nav>
+        <h2><a href="#">Select a Document</a></h2>
+        <section>
+            <h3>Documents</h3>
+            <ul></ul>
+            <h3>Create a new document</h3>
+            <form>
+                <input type="text" name="title" id="title" />
+            </form>
+        </section>
+    </nav>
+
     <aside>
 
 
     </aside>
 
     <header>
-        <h1>Usemockups sketches</h1>
+        <h1></h1>
     </header>
 
     <article style="width: 960px; height: 1200px;">
@@ -29,6 +41,11 @@
         <h2>Properties</h2>
         <form class="properties"></form>
     </footer>
+
+    <script type="text/html" id="navigation-item-template">
+        <a class="show" href="#document/<%= id %>"><%= title %></a>
+        <a class="destroy" href="#">Delete</a>
+    </script>
 
     <script type="text/html" id="property-form-template">
     <% for (var attribute in attributes) { %>
@@ -105,12 +122,14 @@
         var usemockups = {
             models: {},
             collections: {},
+            routers: {},
             views: {},
             toolbox: []
         }
     </script>
     <script src="static/js/persistance/local-storage.js"></script>
 
+    <script src="static/js/routers/document.js"></script>
     <script src="static/js/models/document.js"></script>
     <script src="static/js/models/mockup.js"></script>
     <script src="static/js/models/toolbox.js"></script>
@@ -253,15 +272,14 @@
 
         $(function () {
 
-            usemockups.active_document = new usemockups.models.Document({
-                "id": "471e2e76-688b-79b8-3f94-d9f4f29319a3"
+            new usemockups.views.Navigation({
+                router: new usemockups.routers.Document(),
+                model: new usemockups.collections.Documents()
             });
 
-            usemockups.active_document.fetch();
-
-            (new usemockups.views.Document({
-                model: usemockups.active_document
-            })).render();
+            Backbone.history.start({
+                pushState: false // !!(window.history && window.history.pushState)
+            });
 
         });
     </script>

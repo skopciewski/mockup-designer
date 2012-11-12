@@ -12,7 +12,8 @@ usemockups.models.Document = Backbone.Model.extend({
         this.set("mockups", this.mockups.toJSON());
     },
     parse: function (result) {
-        this.mockups.reset(result.mockups);
+        if (this.mockups)
+            this.mockups.reset(result.mockups);
         return result;
     }
 });

@@ -28,6 +28,8 @@ usemockups.views.Toolbox = Backbone.View.extend({
     el: "aside",
     render: function () {
 
+        this.$el.empty();
+
         _.forEach(_.uniq(this.model.pluck("category")), function (category) {
 
             $("<h2>").html(category).after(

@@ -27,11 +27,11 @@ usemockups.views.Page = Backbone.View.extend({
     },
     
     render_mockups: function () {
+        this.$el.empty();
         _.forEach(this.model.mockups.models, this.add_mockup, this);
     },
 
     render: function () {
-
 
         this.$el.droppable({
             accept: ".toolbox li",
@@ -70,6 +70,10 @@ usemockups.views.Page = Backbone.View.extend({
 usemockups.views.Document = Backbone.View.extend({
     el: "body",
 
+    events: {
+        "click header": "change_title"
+    },
+
     initialize: function () {
         this.model.on("change:title", this.render_title, this);
     },
@@ -80,9 +84,10 @@ usemockups.views.Document = Backbone.View.extend({
             model: usemockups.toolbox
         })).render();
 
-        (new usemockups.views.Page({
+        this.article = (new usemockups.views.Page({
             model: this.model
-        })).render();
+        }));
+        this.article.render();
 
         this.render_title();
     },
@@ -90,5 +95,92 @@ usemockups.views.Document = Backbone.View.extend({
     render_title : function () {
         this.$el.find("header h1").html(this.model.escape("title"));
         return this;
+    },
+
+    change_title: function () {
+        var title = window.prompt("Title", this.model.get("title"));
+        if (title) {
+            this.model.set({
+                title: title
+            })
+        }
+    }
+});
+
+
+usemockups.views.NavigationItem = Backbone.View.extend({
+    tagName: "li",
+    template: $("#navigation-item-template").html(),
+    events: {
+        "click a.show": "route",
+        "click a.destroy": "destroy"
+    },
+    render: function () {
+        this.$el.html(_.template(this.template, this.model.toJSON()))
+        return this;
+    },
+    route: function (event) {
+        this.options.router.navigate($(event.target).attr("href"), {
+            trigger: true
+        });
+        this.options.parent.toggle_navigation();
+    },
+    destroy: function () {
+        if (!window.confirm("Are you sure?"))
+            return false;
+
+        this.model.destroy();
+        this.$el.remove();
+        return false;
+    }
+});
+
+usemockups.views.NewDocumentForm = Backbone.View.extend({
+    el: "nav form",
+    events: {
+        "submit": "submit_form"
+    },
+    submit_form: function () {
+        var title = this.$el.find("#title");
+        if (title) {
+            (new usemockups.models.Document()).save({ title: title.val() },{
+                success: function (model) {
+                    this.model.add(model);
+                    title.val("");
+                }.bind(this)
+            });
+        }
+        return false;
+    }
+});
+
+usemockups.views.Navigation = Backbone.View.extend({
+    el: "nav",
+    events: {
+        "click h2 a": "toggle_navigation"
+    },
+    initialize: function () {
+        this.model.on("reset", this.render, this);
+        this.model.on("add", this.add_document_item, this);
+        this.model.fetch();
+    },
+    add_document_item: function (model) {
+        this.$el.find("ul").append((new usemockups.views.NavigationItem({
+            model: model,
+            router: this.options.router,
+            parent: this
+        })).render().el);
+    },
+    render: function () {
+        _.forEach(this.model.models, this.add_document_item, this);
+
+        new usemockups.views.NewDocumentForm({
+            model: this.model
+        });
+
+    },
+    toggle_navigation: function () {
+        this.$el.find("section").toggle();
+        return false;
     }
 });

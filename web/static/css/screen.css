@@ -11,54 +11,54 @@ aside {
 
 }
 
-aside h2 {
-    cursor: default;
-    padding: 2px 7px;
-    font-weight: normal;
-    font-size: 18px;
-    text-align: right;
-    color: #fff;
-    background-color: #f35b8e;
-    float: right;
-    border-right: solid 4px #bf4870;
+    aside h2 {
+        cursor: default;
+        padding: 2px 7px;
+        font-weight: normal;
+        font-size: 18px;
+        text-align: right;
+        color: #fff;
+        background-color: #f35b8e;
+        float: right;
+        border-right: solid 4px #bf4870;
 
-    margin: 0 8px 2px;
+        margin: 0 8px 2px;
 
-}
+    }
 
-aside .toolbox {
+    aside .toolbox {
+        clear: both;
+        margin-top: 0;
+        margin-bottom: 40px;
+        margin-right: 3px;
+        padding: 0;
+    }
+
+    aside .toolbox li {
+        margin: 2px 5px;
+        list-style: none;
+        font-size: 12px;
+        text-align: right;
+
+    }
+
+    aside .toolbox li:after {
+        content: "";
     clear: both;
-    margin-top: 0;
-    margin-bottom: 40px;
-    margin-right: 3px;
-    padding: 0;
 }
 
-aside .toolbox li {
-    margin: 2px 5px;
-    list-style: none;
-    font-size: 12px;
-    text-align: right;
+    aside .toolbox li span {
+        padding: 4px 10px;
+        background-color: #f3ef56;
+        color: #303030;
+        font-size: 18px;
+        font-weight: bold;
+        display: inline-block;
+        cursor: default;
+        border-right: 4px solid #d2ce4a;
+        cursor: move;
 
-}
-
-aside .toolbox li:after {
-    content: "";
-    clear: both;
-}
-
-aside .toolbox li span {
-    padding: 4px 10px;
-    background-color: #f3ef56;
-    color: #303030;
-    font-size: 18px;
-    font-weight: bold;
-    display: inline-block;
-    cursor: default;
-    border-right: 4px solid #d2ce4a;
-    cursor: move;
-
-}
+    }
 
 article {
     background: white url(/static/images/paper.png);
@@ -68,17 +68,94 @@ article {
 
 header {
     position: absolute;
-    top: 20px;
-    left: 170px;
+    top: 14px;
+    left: 162px;
+    width: 960px;
 }
 
-header h1 {
-    margin: 0;
-    padding: 0;
-    font-size: 30px;
-    color: #e8e8e8;
-    font-weight: normal;
+    header h1 {
+        margin: 0;
+        padding: 10px;
+        font-size: 30px;
+        color: #e8e8e8;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+
+nav {
+    position: absolute;
+    top: 28px;
+    left: 772px;
+    z-index: 1;
+    width: 350px;
 }
+
+    nav h2 {
+        margin: 0;
+        background-color: #4e4e4e;
+        font-size: 17px;
+        padding: 5px 0;
+        text-align: center;
+        width: 170px;
+        float: right;
+    }
+
+    nav h2 a {
+        color: #e8e8e8;
+        text-decoration: none;
+    }
+
+    nav h2:hover {
+        background-color: black;
+    }
+
+    nav section {
+        display: none;
+        background-color: #ededed;
+        margin-top: 34px;
+    }
+
+    nav section h3 {
+        color: #414141;
+        padding: 7px 15px 0;
+        margin: 0;
+    }
+
+    nav ul {
+        margin: 0;
+        width: 100%;
+    }
+
+    nav ul li {
+        margin: 0;
+        padding: 0;
+    }
+
+    nav ul li a {
+        display: inline-block;
+        padding: 10px 16px;
+        color: #4a4a4a;
+        text-decoration: none;
+    }
+
+    nav ul li a.destroy {
+        float: right;
+        margin-right: 10px;
+    }
+
+    nav ul li a:hover {
+        text-decoration: underline;
+    }
+
+    nav form {
+        padding: 15px;
+    }
+
+    nav form input {
+        width: 90%;
+    }
+
 
 
 
@@ -92,42 +169,42 @@ footer {
     border-top: 10px solid #f2ee55;
 }
 
-footer form {
+    footer form {
 
-}
+    }
 
-footer > * {
-    width: 960px;
-    margin: 0 auto;
-}
+    footer > * {
+        width: 960px;
+        margin: 0 auto;
+    }
 
-footer h2 {
-    margin: 5px auto;
-    padding: 4px;
-    color: gray;
-    font-weight: normal;
+    footer h2 {
+        margin: 5px auto;
+        padding: 4px;
+        color: gray;
+        font-weight: normal;
 
-}
+    }
 
-footer form {
-}
+    footer form {
+    }
 
-footer form .line {
-    width: 200px;
-    float: left;
-    margin-right: 30px;
-    margin-left: 2px;
-    padding-bottom: 20px;
-}
+    footer form .line {
+        width: 200px;
+        float: left;
+        margin-right: 30px;
+        margin-left: 2px;
+        padding-bottom: 20px;
+    }
 
-footer form input {
-    width: 100%;
-    outline: none;
-    padding: 2px 4px;
+    footer form input {
+        width: 100%;
+        outline: none;
+        padding: 2px 4px;
 
-}
+    }
 
-footer form label {
+    footer form label {
     color: #484848;
 }
 

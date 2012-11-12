@@ -89,9 +89,6 @@ usemockups.views.Mockup = Backbone.View.extend({
             minHeight: this.tool.get("min_height")
         });
 
-        this.$el.find("")
-
-
     },
 
     focus: function () {
@@ -100,8 +97,6 @@ usemockups.views.Mockup = Backbone.View.extend({
     },
 
     show_property_dialog: function () {
-
-        $("footer").show()
 
         if (usemockups.active_property_dialog &&
             usemockups.active_property_dialog.model === this.model) {

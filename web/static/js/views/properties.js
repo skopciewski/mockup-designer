@@ -6,8 +6,6 @@ usemockups.views.PropertyDialog = Backbone.View.extend({
     },
     render: function () {
 
-        $("footer").show();
-
         this.$el.html(_.template(this.template, {
             "attributes": this.get_attributes()
         })).find("input").change(function (ui) {
