@@ -273,16 +273,23 @@
         };
 
 
+
         $(function () {
 
-            new usemockups.views.Navigation({
-                router: new usemockups.routers.Document(),
-                model: new usemockups.collections.Documents()
+            var documents = new usemockups.collections.Documents();
+            var router = new usemockups.routers.Document({
+                documents: documents
             });
 
             Backbone.history.start({
                 pushState: false // !!(window.history && window.history.pushState)
             });
+
+            new usemockups.views.Navigation({
+                router: router,
+                model: documents
+            });
+
 
         });
     </script>

@@ -29,6 +29,7 @@ usemockups.views.Page = Backbone.View.extend({
     render_mockups: function () {
         this.$el.empty();
         _.forEach(this.model.mockups.models, this.add_mockup, this);
+        this.model.mockups.off("reset")
     },
 
     render: function () {
@@ -100,7 +101,7 @@ usemockups.views.Document = Backbone.View.extend({
     change_title: function () {
         var title = window.prompt("Title", this.model.get("title"));
         if (title) {
-            this.model.set({
+            this.model.save({
                 title: title
             })
         }
@@ -112,17 +113,15 @@ usemockups.views.NavigationItem = Backbone.View.extend({
     tagName: "li",
     template: $("#navigation-item-template").html(),
     events: {
-        "click a.show": "route",
+        "click a.show": "navigate",
         "click a.destroy": "destroy"
     },
     render: function () {
         this.$el.html(_.template(this.template, this.model.toJSON()))
         return this;
     },
-    route: function (event) {
-        this.options.router.navigate($(event.target).attr("href"), {
-            trigger: true
-        });
+    navigate: function () {
+        this.options.router.navigate_document(this.model);
         this.options.parent.toggle_navigation();
     },
     destroy: function () {
@@ -172,6 +171,7 @@ usemockups.views.Navigation = Backbone.View.extend({
         })).render().el);
     },
     render: function () {
+
         _.forEach(this.model.models, this.add_document_item, this);
 
         new usemockups.views.NewDocumentForm({

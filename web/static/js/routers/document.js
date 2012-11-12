@@ -1,6 +1,10 @@
 usemockups.routers.Document = Backbone.Router.extend({
     routes: {
-        "document/:id": "get_document"
+        "document/:id": "get_document",
+        "": "index"
+    },
+    initialize: function (options) {
+        this.documents = options.documents;
     },
     get_document: function (document_id) {
 
@@ -25,6 +29,26 @@ usemockups.routers.Document = Backbone.Router.extend({
 
         usemockups.active_document_view.render();
 
-
+    },
+    index: function () {
+        this.documents.on("reset", function () {
+            if (this.documents.models.length)
+                this.navigate_document(this.documents.last());
+            else
+                this.create_demo_document();
+        }, this)
+    },
+    create_demo_document: function () {
+        var demo_document = new usemockups.models.Document();
+        demo_document.save({ title: "Welcome" }, {
+            success: function (model) {
+                this.documents.add(model, { silent: true });
+                this.navigate_document(model);
+            }.bind(this)
+        });
+    },
+    navigate_document: function (document) {
+        var uri = "document/" + document.get("id");
+        this.navigate(uri, true);
     }
 });

@@ -6,7 +6,6 @@ usemockups.models.Document = Backbone.Model.extend({
     initialize: function () {
         this.mockups = new usemockups.collections.Mockups;
         this.mockups.on("add remove persist", this.persist, this);
-
     },
     persist: function () {
         this.set("mockups", this.mockups.toJSON());
@@ -17,6 +16,7 @@ usemockups.models.Document = Backbone.Model.extend({
             this.mockups.reset(result.mockups);
         return result;
     }
+
 });
 
 usemockups.collections.Documents = Backbone.Collection.extend({
