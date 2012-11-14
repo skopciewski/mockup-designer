@@ -6,7 +6,8 @@ usemockups.views.Page = Backbone.View.extend({
     initialize: function () {
         this.model.mockups.on("add", this.add_mockup, this);
         this.model.mockups.on("reset", this.render_mockups, this);
-        this.render_mockups()
+        this.render_mockups();
+        this.footer = $("footer");
     },
 
     add_mockup: function (mockup, options) {
@@ -34,7 +35,7 @@ usemockups.views.Page = Backbone.View.extend({
                 show_property_dialog: false
             })
         }, this);
-        this.model.mockups.off("reset")
+        this.model.mockups.off("reset");
     },
 
     render: function () {
@@ -60,9 +61,9 @@ usemockups.views.Page = Backbone.View.extend({
 
         this.$el.click(function (event) {
             if ($(event.target).is("article")) {
-                $("footer").hide()
+                this.footer.hide()
             }
-        })
+        }.bind(this));
 
     },
 
