@@ -49,6 +49,7 @@
 
     <script type="text/html" id="property-form-template">
     <% for (var attribute in attributes) { %>
+        <% if (!attributes[attribute].hidden) { %>
         <div class="line">
         <label for="id_<%= attributes[attribute].name %>"><%= attributes[attribute].name %></label>
 
@@ -62,6 +63,7 @@
                value="<%= attributes[attribute].value %>" />
         <% } %>
         </div>
+        <% } %>
     <% } %>
         <div class="line delete">
         <a class="delete" href="#">Delete</a>
@@ -73,13 +75,13 @@
     </script>
 
     <script type="text/html" id="checkbox-template">
-        <div class="checkbox <%= checked ? 'checked' : '' %>">
-
-        </div>
+        <div class="checkbox <%= checked ? 'checked' : '' %>"></div>
+        <span data-attribute="text"><%= text %></span>
     </script>
 
     <script type="text/html" id="radio-template">
         <div class="radio <%= checked ? 'checked' : '' %>"></div>
+        <span data-attribute="text"><%= text %></span>
     </script>
 
     <script type="text/html" id="heading-template">
@@ -108,11 +110,20 @@
             <% for (var i=0; i < rows; i++ ) { %>
                 <tr>
                     <% for (var j=0; j < columns; j++ ) { %>
-                        <td><input type="text" data-row="<%= i %>" data-column="<%= j %>" value="<%=  values[i] ? values[i][j] : ''  %>" /></td>
+                        <td>
+                            <input type="text" data-row="<%= i %>" data-column="<%= j %>" value="<%=  values[i] ? values[i][j] : ''  %>" />
+                        </td>
                     <% } %>
                 </tr>
             <% } %>
         </table>
+    </script>
+
+    <script type="text/html" id="image-template">
+        <svg version="1.1"  xmlns="http://www.w3.org/2000/svg" width="200px" height="100px" viewBox="0 0 200 100" preserveAspectRatio="none" style="width: 100%; height: 100%;">
+        <line vector-effect="non-scaling-stroke" fill="none" stroke="#444444" stroke-width="2" x1="0" y1="100" x2="200" y2="0"></line>
+        <line vector-effect="non-scaling-stroke" fill="none" stroke="#444444" stroke-width="2" x1="0" y1="0" x2="200" y2="100"></line>
+        </svg>​
     </script>
 
 
@@ -143,7 +154,6 @@
 
     <script type="text/javascript">
 
-
         usemockups.toolbox = new usemockups.collections.Toolbox([{
             "name": "button",
             "category": "form",
@@ -164,6 +174,11 @@
                     "name": "checked",
                     "type": "boolean",
                     "default": true
+                },
+                {
+                    "name": "text",
+                    "type": "string",
+                    "default": "Label"
                 }
             ]
         },{
@@ -189,6 +204,11 @@
                     "name": "checked",
                     "type": "boolean",
                     "default": true
+                },
+                {
+                    "name": "text",
+                    "type": "string",
+                    "default": "Label"
                 }
             ]
         },
@@ -259,14 +279,30 @@
                 "default": "3"
             },{
                 "name": "values",
-                "editable": false,
+                "hidden": true,
                 "default": [
                     ["lorem", "ipsum", "dolor"],
                     ["sit", "amet", "lorem"],
                     ["ipsum", "dolor", "sit"]
                 ]
             }]
-        }]);
+        },
+
+            {
+                "name": "image",
+                "category": "content",
+                "template": "#image-template",
+                "attributes": [{
+                    "name": "width",
+                    "default": 250
+                },{
+                    "name": "height",
+                    "default": 250
+                }]
+            }
+
+
+        ]);
 
         usemockups.custom_mockup_views = {
             "table": usemockups.views.TableMockup

@@ -208,11 +208,20 @@ footer {
     footer .line.delete {
         float: right;
         text-align: right;
+        font-size: 18px;
         margin-top: 37px;
     }
 
     footer a.delete {
-        color: gray;
+        color: white;
+        background-color: #bf4870;
+        padding: 3px 8px;
+        text-decoration: none;
+    }
+
+    footer a.delete:hover {
+        background-color: #8d3553;
+        color: white;
     }
 
 .object {
@@ -233,12 +242,12 @@ footer {
 
 .object .button {
     background-color: #e8e8e8;
-    color: #292929;
+    color: #383838;
     border-radius: 5px;
     padding: 2px 5px;
     text-align: center;
     font-weight: normal;
-    border: 3px solid #292929;
+    border: 3px solid #383838;
 }
 
 .object .button input {
@@ -249,7 +258,7 @@ footer {
     width: 20px;
     height: 20px;
     background-color: #e8e8e8;
-    border: 3px solid #292929;
+    border: 3px solid #383838;
     border-radius: 20%;
 }
 
@@ -270,13 +279,22 @@ footer {
     -o-transform: rotate(-45deg);
     -ms-transform: rotate(-45deg);
     transform: rotate(-45deg);
+
+}
+
+.object .checkbox ~ span {
+    min-width: 200px;
+    margin-top: -23px;
+    margin-left: 34px;
+    font-weight: bold;
+    position: absolute;
 }
 
 .object .radio {
     width: 20px;
     height: 20px;
     background-color: #e8e8e8;
-    border: 3px solid #292929;
+    border: 3px solid #383838;
     border-radius: 50%;
 }
 
@@ -291,21 +309,30 @@ footer {
     border-radius: 50%;
 }
 
+.object .radio ~ span {
+    min-width: 200px;
+    margin-top: -23px;
+    margin-left: 32px;
+    font-weight: bold;
+    position: absolute;
+}
+
 .object table {
     background-color: #e8e8e8;
-    border: 3px solid #292929;
+    border: 3px solid #383838;
     width: 100%;
 
 }
 
 .object table td {
-    padding: 5px;
+    padding: 5px 10px;
+    border: 1px solid #a2a2a2;
 }
 
 .object table th {
     text-align: center;
     padding: 3px 5px;
-    background-color: #292929;
+    background-color: #383838;
     color: white;
 }
 
@@ -318,7 +345,7 @@ footer {
     background-color: #e8e8e8;
     overflow: hidden;
     min-width: 120px;
-    border: 3px solid #292929;
+    border: 3px solid #383838;
     border-radius: 5px;
 }
 .object .combobox .text {
@@ -335,13 +362,17 @@ footer {
     height: 0;
     border-style: solid;
     border-width: 12px 8px 0 8px;
-    border-color: #292929 transparent transparent transparent;
+    border-color: #383838 transparent transparent transparent;
     text-indent: -9999px;
 
 }
 
 .object.preview .heading {
     width: 400px;
+}
+
+.object.preview table {
+    width: 250px;
 }
 
 .object .heading {

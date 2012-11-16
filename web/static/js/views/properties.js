@@ -1,13 +1,17 @@
 usemockups.views.PropertyDialog = Backbone.View.extend({
     el: "footer form",
     template: $("#property-form-template").html(),
+    events: {
+        'submit': 'submit'
+    },
     initialize: function () {
         this.on("update", this.update_for_attribute);
         this.model.on("destroy", this.hide, this);
+        this.footer = $("footer")
     },
     render: function () {
 
-        $("footer").show();
+        this.footer.show();
 
         this.$el.html(_.template(this.template, {
             "attributes": this.get_attributes()
@@ -28,8 +32,7 @@ usemockups.views.PropertyDialog = Backbone.View.extend({
         }.bind(this));
 
         this.$el.find("a.delete").click(function () {
-            if (window.confirm("Are you sure?"))
-                this.model.destroy();
+            this.destroy();
             return false;
         }.bind(this));
 
@@ -46,6 +49,15 @@ usemockups.views.PropertyDialog = Backbone.View.extend({
         },this)
     },
     hide: function () {
-        $("footer").hide();
+        this.footer.hide();
+    },
+    destroy: function () {
+        this.model.destroy();
+        return false;
+    },
+    submit: function () {
+        this.hide();
+        return false;
     }
+
 });

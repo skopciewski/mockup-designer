@@ -12,7 +12,7 @@ usemockups.models.Document = Backbone.Model.extend({
         this.save();
     },
     parse: function (result) {
-        if (this.mockups)
+        if (this.mockups && !this.mockups.length)
             this.mockups.reset(result.mockups);
         return result;
     }

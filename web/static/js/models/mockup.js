@@ -9,13 +9,14 @@ usemockups.models.Mockup = Backbone.Model.extend({
         _.forEach(this.get_attributes(), function (value, key) {
             this.set(key, value);
         }, this);
-        this.on("change", this.persist, this);
+        this.on("change persist", this.persist, this);
+        this.document = this.collection
     },
     is_resizable: function () {
         return this.has("width") || this.has("height")
     },
     persist: function () {
-        this.collection && this.collection.trigger("persist");
+        this.document && this.document.trigger("persist");
     }
 });
 

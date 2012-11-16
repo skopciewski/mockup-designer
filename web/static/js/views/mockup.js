@@ -12,7 +12,7 @@ usemockups.views.Mockup = Backbone.View.extend({
         this.tool = usemockups.toolbox.get(this.model.get("tool"));
         this.template = $(this.tool.get("template")).html();
 
-        this.model.on("destroy", this.destroy, this)
+        this.model.on("destroy", this.detach, this)
 
     },
     render: function (rendering_options) {
@@ -53,7 +53,7 @@ usemockups.views.Mockup = Backbone.View.extend({
                 usemockups.active_property_dialog.trigger("update", $(event.target));
             }.bind(this));
 
-        }.bind(this));
+        }.bind(this))
 
         this.make_resizable();
 
@@ -114,12 +114,16 @@ usemockups.views.Mockup = Backbone.View.extend({
             return;
         }
 
+        if (usemockups.active_property_dialog) {
+            usemockups.active_property_dialog.undelegateEvents();
+        }
+
         usemockups.active_property_dialog = (new usemockups.views.PropertyDialog({
             "model": this.model
         })).render()
     },
 
-    destroy: function () {
+    detach: function () {
         this.$el.remove();
     }
 });
@@ -131,7 +135,7 @@ usemockups.views.Mockup = Backbone.View.extend({
 usemockups.views.TableMockup = usemockups.views.Mockup.extend({
     initialize: function () {
         usemockups.views.Mockup.prototype.initialize.apply(this);
-        this.model.on("change:columns change:rows", this.persist_values, this)
+        this.model.on("change:columns change:rows", this.persist_values, this);
     },
     render: function () {
         usemockups.views.Mockup.prototype.render.apply(this);
@@ -140,6 +144,8 @@ usemockups.views.TableMockup = usemockups.views.Mockup.extend({
             var values = this.model.get("values");
             values[input.data("row")][input.data("column")] = input.val() || "";
             this.model.set("values", values);
+            this.model.trigger("persist");
+
         }.bind(this));
         return this;
     },
@@ -156,5 +162,6 @@ usemockups.views.TableMockup = usemockups.views.Mockup.extend({
         }
 
         this.model.set("values", values);
+        this.model.trigger("persist");
     }
 });
