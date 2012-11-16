@@ -60,7 +60,12 @@ usemockups.views.ToolPreview = Backbone.View.extend({
     },
 
     render: function () {
-        this.$el.html(_.template(this.template, this.tool.get_attributes()));
+        var attributes = this.tool.get_attributes();
+        this.$el.html(_.template(this.template, attributes));
+        if (attributes.width)
+            this.$el.width(attributes.width);
+        if (attributes.height)
+            this.$el.height(attributes.height);
         return this;
     }
 });

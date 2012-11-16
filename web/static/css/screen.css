@@ -392,6 +392,22 @@ footer {
     margin: 0;
 }
 
+.object .image {
+    background-color: white;
+    border: 2px solid #dedede;
+
+}
+
+.object .shape {
+    width: 100%;
+    height: 100%;
+}
+
+.object.circle .shape {
+    border-radius: 50%;
+}
+
+
 
 .ui-resizable-handle {
     bottom: -4px;
@@ -406,3 +422,4 @@ footer {
 .object:focus .ui-resizable-handle {
     visibility: visible;
 }
+

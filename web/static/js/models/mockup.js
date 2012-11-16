@@ -1,7 +1,8 @@
 usemockups.models.Mockup = Backbone.Model.extend({
     defaults: {
         top: 0,
-        left: 0
+        left: 0,
+        z_index: 0
     },
     initialize: function () {
         this.tool = usemockups.toolbox.get(this.get("tool"));

@@ -26,8 +26,9 @@ usemockups.views.Mockup = Backbone.View.extend({
             "top": this.model.get("top") + this.article.offset().top,
             "left": this.model.get("left") + this.article.offset().left,
             "width": this.model.get("width") || "auto",
-            "height": this.model.get("height") || "auto"
-        }).draggable({
+            "height": this.model.get("height") || "auto",
+            "z-index": this.model.get("z_index")
+        }).addClass(this.model.get("tool")).draggable({
                 "containment": "article",
                 "stop": function (event, ui) {
                     this.model.set({
