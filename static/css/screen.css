@@ -61,7 +61,7 @@ aside {
     }
 
 article {
-    background: white url(static/images/paper.png);
+    background: white url(../images/paper.png);
     margin: 80px 0 50px 162px;
 
 }
