@@ -433,15 +433,13 @@ footer {
 .object .shape {
     width: 100%;
     height: 100%;
-    border: 2px solid #383838;
-    border-radius: 3px;
+    border: 3px solid #383838;
+    /*border-radius: 3px;*/
 }
 
 .object.circle .shape {
     border-radius: 50%;
 }
-
-
 
 .ui-resizable-handle {
     bottom: -4px;

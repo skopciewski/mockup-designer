@@ -40,7 +40,7 @@ usemockups.routers.Document = Backbone.Router.extend({
     },
     create_demo_document: function () {
         var demo_document = new usemockups.models.Document();
-        demo_document.save({ title: "Welcome" }, {
+        demo_document.save(usemockups.fixtures.demo_document, {
             success: function (model) {
                 this.documents.add(model, { silent: true });
                 this.navigate_document(model);
