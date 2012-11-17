@@ -13,23 +13,21 @@ aside {
 
     aside h2 {
         cursor: default;
-        padding: 2px 7px;
+        padding: 2px 10px;
         font-weight: normal;
         font-size: 18px;
         text-align: right;
         color: #fff;
-        background-color: #f35b8e;
+        background-color: #4a4a4a;
         float: right;
-        border-right: solid 4px #bf4870;
-
+        border-right: solid 4px #434343;
         margin: 0 8px 2px;
-
     }
 
     aside .toolbox {
         clear: both;
         margin-top: 0;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
         margin-right: 3px;
         padding: 0;
     }
@@ -44,8 +42,8 @@ aside {
 
     aside .toolbox li:after {
         content: "";
-    clear: both;
-}
+        clear: both;
+    }
 
     aside .toolbox li span {
         padding: 4px 10px;
@@ -194,7 +192,7 @@ footer {
     }
 
     footer form .line {
-        width: 200px;
+        width: 120px;
         float: left;
         margin-right: 30px;
         margin-left: 2px;
@@ -209,27 +207,31 @@ footer {
     }
 
     footer form label {
-    color: #484848;
+        color: #484848;
     }
 
-    footer .line.delete {
+    footer .line.tools {
         float: right;
         text-align: right;
         font-size: 18px;
-        margin-top: 37px;
+        margin-top: -40px;
     }
 
-    footer a.delete {
+    footer a {
+        display: inline-block;
         color: white;
-        background-color: #bf4870;
+        background-color: #525252;
         padding: 3px 8px;
         text-decoration: none;
+        margin-bottom: 3px;
+        font-size: 17px;
     }
 
-    footer a.delete:hover {
-        background-color: #8d3553;
+    footer a:hover {
+        background-color: #383838;
         color: white;
     }
+
 
 .object {
     position: absolute !important; /* prevent jquery ui draggable position definition */
@@ -324,6 +326,23 @@ footer {
     position: absolute;
 }
 
+.object .text-input {
+    height: 100%;
+}
+
+.object .text-input label {
+    font-weight: bold;
+    cursor: move;
+    font-size: 17px;
+}
+
+.object .text-input .input {
+    width: 100%;
+    height: 100%;
+    background-color: #e8e8e8;
+    border: 3px solid #383838;
+}
+
 .object table {
     background-color: #e8e8e8;
     border: 3px solid #383838;
@@ -374,6 +393,10 @@ footer {
 
 }
 
+.object.preview {
+    z-index: 1;
+}
+
 .object.preview .heading {
     width: 400px;
 }
@@ -408,6 +431,8 @@ footer {
 .object .shape {
     width: 100%;
     height: 100%;
+    border: 2px solid #383838;
+    border-radius: 3px;
 }
 
 .object.circle .shape {
@@ -428,5 +453,15 @@ footer {
 
 .object:focus .ui-resizable-handle {
     visibility: visible;
+}
+
+.shape ~ .ui-resizable-handle {
+    right: -5px;
+    bottom: -5px;
+}
+
+.text-input ~ .ui-resizable-handle {
+    right: -9px;
+    bottom: -35px;
 }
 

@@ -2,12 +2,14 @@ usemockups.views.PropertyDialog = Backbone.View.extend({
     el: "footer form",
     template: $("#property-form-template").html(),
     events: {
-        'submit': 'submit'
+        'submit': 'submit',
+        'click .send-to-back': 'send_to_back',
+        'click .bring-to-front': 'bring_to_front'
     },
     initialize: function () {
         this.on("update", this.update_for_attribute);
         this.model.on("destroy", this.hide, this);
-        this.footer = $("footer")
+        this.footer = $("footer");
     },
     render: function () {
 
@@ -57,6 +59,21 @@ usemockups.views.PropertyDialog = Backbone.View.extend({
     },
     submit: function () {
         this.hide();
+        return false;
+    },
+    send_to_back: function () {
+        this.model.set({
+            "z_index":  usemockups.views.Mockup.prototype.min_z_index
+        });
+        _.forEach(usemockups.active_document_view.model.mockups.models, function (mockup) {
+            mockup.set("z_index", mockup.get("z_index") + 1);
+        }, this);
+        return false;
+    },
+    bring_to_front: function () {
+        this.model.set({
+            "z_index":  usemockups.views.Mockup.prototype.max_z_index + 1
+        });
         return false;
     }
 

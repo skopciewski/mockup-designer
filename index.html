@@ -46,7 +46,7 @@
     <script type="text/html" id="property-form-template">
     <% for (var attribute in attributes) { %>
         <% if (!attributes[attribute].hidden) { %>
-        <div class="line">
+        <div class="line <%= attributes[attribute].type %>">
         <label for="id_<%= attributes[attribute].name %>"><%= attributes[attribute].name %></label>
 
         <% if (attributes[attribute].type == "boolean") { %>
@@ -61,7 +61,9 @@
         </div>
         <% } %>
     <% } %>
-        <div class="line delete">
+        <div class="line tools">
+        <a class="send-to-back" href="#">send to back</a>
+        <a class="bring-to-front" href="#">bring to front</a>
         <a class="delete" href="#">Delete</a>
         </div>
     </script>
@@ -80,6 +82,15 @@
         <span data-attribute="text"><%= text %></span>
     </script>
 
+    <script type="text/html" id="text-template">
+        <div class="text-input">
+        <% if (label) { %>
+        <label data-attribute="text"><%= text %></label>
+        <% } %>
+        <div class="input"></div>
+        </div>
+    </script>
+
     <script type="text/html" id="heading-template">
         <h1 class="heading" data-attribute="text" style="font-size: <%= size %>px; color: <%= color %>"><%= text %></h1>
     </script>
@@ -91,7 +102,7 @@
     </script>
 
     <script type="text/html" id="label-template">
-        <strong data-attribute="text"><%= text %></strong>
+        <strong data-attribute="text" style="color: <%= color %>; font-size: <%= size %>px;"><%= text %></strong>
     </script>
 
     <script type="text/html" id="combobox-template">
@@ -124,7 +135,7 @@
     </script>
 
     <script type="text/html" id="shape-template">
-        <div class="shape" style="background-color: <%= color %>;"></div>
+        <div class="shape" style="background-color: <%= color %>; <%= border ? '' : 'border:none' %>"></div>
     </script>
 
 
@@ -216,6 +227,32 @@
             ]
         },
         {
+            "name": "text",
+            "category": "form",
+            "template": "#text-template",
+            "min_height": 20,
+            "attributes": [
+                {
+                    "name": "label",
+                    "type": "boolean",
+                    "default": true
+                },
+                {
+                    "name": "text",
+                    "type": "string",
+                    "default": "Label"
+                },
+                {
+                    "name": "width",
+                    "default": 200
+                },
+                {
+                    "name": "height",
+                    "default": 30
+                }
+            ]
+        },
+        {
             "name": "heading",
             "category": "typography",
             "template": "#heading-template",
@@ -263,6 +300,14 @@
                     {
                         "name": "text",
                         "default": "Label"
+                    },
+                    {
+                        "name": "size",
+                        "default": "14"
+                    },
+                    {
+                        "name": "color",
+                        "default": "black"
                     }
                 ]
             },
@@ -320,6 +365,11 @@
                 {
                     "name": "color",
                     "default": "#dedede"
+                },
+                {
+                    "name": "border",
+                    "default": true,
+                    "type": "boolean"
                 }]
             },
 
@@ -334,10 +384,15 @@
                     "name": "height",
                     "default": 200
                 },
-                    {
-                        "name": "color",
-                        "default": "#dedede"
-                    }]
+                {
+                    "name": "color",
+                    "default": "#dedede"
+                },
+                {
+                    "name": "border",
+                    "default": true,
+                    "type": "boolean"
+                }]
             }
 
 

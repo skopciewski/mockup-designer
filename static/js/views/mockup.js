@@ -38,6 +38,7 @@ usemockups.views.Mockup = Backbone.View.extend({
                 }.bind(this)
         }).html(_.template(this.template, this.model.get_attributes()));
 
+
         this.$el.find("[data-attribute]").dblclick(function (event) {
             var attribute = $(event.target).data("attribute");
             var input = $("<input>")
@@ -70,7 +71,22 @@ usemockups.views.Mockup = Backbone.View.extend({
         if (options.focus)
             this.focus();
 
+        this.determine_z_indexes();
+
         return this;
+    },
+
+    determine_z_indexes: function () {
+        var _prototype = usemockups.views.Mockup.prototype,
+            min_z_index = _prototype.min_z_index || 1,
+            max_z_index = _prototype.max_z_index || 1;
+
+        if (this.model.get("z_index") < min_z_index)
+            min_z_index  = this.model.get("z_index");
+        if (this.model.get("z_index") > max_z_index)
+            max_z_index = this.model.get("z_index");
+        _prototype.min_z_index = min_z_index;
+        _prototype.max_z_index = max_z_index;
     },
 
     make_resizable: function () {
