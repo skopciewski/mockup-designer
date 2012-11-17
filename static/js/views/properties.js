@@ -7,7 +7,8 @@ usemockups.views.PropertyDialog = Backbone.View.extend({
         'click .bring-to-front': 'bring_to_front'
     },
     initialize: function () {
-        this.on("update", this.update_for_attribute);
+        this.on("update_for_attribute", this.update_for_attribute);
+        this.on("update_for_sizes", this.update_for_sizes);
         this.model.on("destroy", this.hide, this);
         this.footer = $("footer");
     },
@@ -42,6 +43,12 @@ usemockups.views.PropertyDialog = Backbone.View.extend({
     },
     update_for_attribute: function (field) {
         this.$el.find("#id_"  + field.data("attribute")).val(field.val());
+    },
+    update_for_sizes: function (size) {
+        if (this.model.has("height"))
+            this.$el.find("#id_height").val(size.height);
+        if (this.model.has("width"))
+            this.$el.find("#id_width").val(size.width);
     },
     get_attributes: function () {
         return _.map(this.model.tool.get("attributes"), function (attribute) {

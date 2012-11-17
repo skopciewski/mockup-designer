@@ -52,7 +52,7 @@ usemockups.views.Mockup = Backbone.View.extend({
                 var input = $(event.target);
                 this.model.set(input.data("attribute"), input.val());
             }.bind(this)).keyup(function (event) {
-                usemockups.active_property_dialog.trigger("update", $(event.target));
+                usemockups.active_property_dialog.trigger("update_for_attribute", $(event.target));
             }.bind(this));
 
         }.bind(this))
@@ -104,6 +104,7 @@ usemockups.views.Mockup = Backbone.View.extend({
                     ui.size.height = ui.originalSize.height;
                 if (!this.model.has("width"))
                     ui.size.width = ui.originalSize.width;
+                usemockups.active_property_dialog.trigger("update_for_sizes", ui.size);
             }.bind(this),
             stop: function (event, ui) {
                 if (this.model.has("width"))
