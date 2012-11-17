@@ -2,7 +2,8 @@ usemockups.views.Mockup = Backbone.View.extend({
     tagName: "div",
     className: "object",
     events: {
-        "click": "show_property_dialog"
+        "click": "show_property_dialog",
+        "keydown": "move"
     },
     initialize: function () {
 
@@ -143,7 +144,25 @@ usemockups.views.Mockup = Backbone.View.extend({
 
     detach: function () {
         this.$el.remove();
+    },
+
+    move: function (e) {
+        var movements = {
+            37: { "left": -5 },
+            39: { "left": 5 },
+            38: { "top": -5 },
+            40: { "top": 5}
+        };
+        if (movements[e.keyCode]) {
+            var movement = movements[e.keyCode];
+            for (var direction in movement) {
+                this.model.set(direction, this.model.get(direction) + movement[direction]);
+            }
+            return false;
+        }
     }
+
+
 });
 
 /*
