@@ -78,7 +78,8 @@ usemockups.views.Document = Backbone.View.extend({
     el: "body",
 
     events: {
-        "click header": "change_title"
+        "click header": "change_title",
+        "click .export": "export"
     },
 
     initialize: function () {
@@ -111,6 +112,14 @@ usemockups.views.Document = Backbone.View.extend({
                 title: title
             })
         }
+    },
+
+    export: function () {
+        html2canvas([this.article.el], {
+            onrendered: function(canvas) {
+                window.open(canvas.toDataURL("image/png"));
+            }
+        });
     }
 });
 
@@ -162,7 +171,7 @@ usemockups.views.NewDocumentForm = Backbone.View.extend({
 usemockups.views.Navigation = Backbone.View.extend({
     el: "nav",
     events: {
-        "click h2": "toggle_navigation"
+        "click a.menu": "toggle_navigation"
     },
     initialize: function () {
         this.model.on("reset", this.render, this);
