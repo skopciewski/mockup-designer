@@ -3,7 +3,7 @@ body {
 }
 
 aside {
-    position: fixed;
+    position: absolute;
     width: 160px;
     height: 100%;
     top: 100px;
