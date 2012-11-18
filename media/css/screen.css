@@ -465,3 +465,10 @@ footer {
     bottom: -35px;
 }
 
+
+#social {
+    width: 100px;
+    position: fixed;
+    top: 82px;
+    right: 20px;
+}
