@@ -2,7 +2,7 @@ usemockups.models.Document = Backbone.Model.extend({
     localStorage: new Backbone.LocalStorage('documents'),
     defaults: {
         "mockups": [],
-        "width": 600,
+        "width": 700,
         "height": 600
     },
     initialize: function () {
