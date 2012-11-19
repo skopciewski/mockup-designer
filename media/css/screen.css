@@ -78,7 +78,7 @@ aside {
 
 article {
     background: white url(../images/paper.png);
-    margin: 100px 0 50px 300px;
+    margin: 95px 0 50px 260px;
     width: 600px;
     height: 600px;
     -webkit-box-shadow: 0 0 10px #bebebe;
@@ -88,7 +88,7 @@ article {
 header {
     position: absolute;
     top: 14px;
-    left: 290px;
+    left: 250px;
     width: 400px;
 }
 
