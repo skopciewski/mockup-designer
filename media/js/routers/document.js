@@ -17,6 +17,7 @@ usemockups.routers.Document = Backbone.Router.extend({
         if (usemockups.active_document_view) {
             usemockups.active_document_view.undelegateEvents();
             usemockups.active_document_view.article.undelegateEvents();
+            usemockups.active_document_view.edit_form.undelegateEvents();
         }
 
         if (usemockups.active_property_dialog) {

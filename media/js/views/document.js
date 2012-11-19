@@ -6,6 +6,7 @@ usemockups.views.Page = Backbone.View.extend({
     initialize: function () {
         this.model.mockups.on("add", this.add_mockup, this);
         this.model.mockups.on("reset", this.render_mockups, this);
+        this.model.on("change:width change:height", this.resize_document, this);
         this.render_mockups();
         this.footer = $("footer");
     },
@@ -38,7 +39,15 @@ usemockups.views.Page = Backbone.View.extend({
         this.model.mockups.off("reset");
     },
 
+    resize_document: function () {
+        this.$el
+            .width(this.model.get("width"))
+            .height(this.model.get("height"));
+    },
+
     render: function () {
+
+        this.resize_document();
 
         this.$el.droppable({
             accept: ".toolbox li",
@@ -97,6 +106,12 @@ usemockups.views.Document = Backbone.View.extend({
         }));
         this.article.render();
 
+        this.edit_form = new usemockups.views.DocumentEditForm({
+            model: this.model
+        });
+
+        this.edit_form.render();
+
         this.render_title();
     },
 
@@ -150,12 +165,12 @@ usemockups.views.NavigationItem = Backbone.View.extend({
 });
 
 usemockups.views.NewDocumentForm = Backbone.View.extend({
-    el: "nav form",
+    el: "nav #documents form",
     events: {
         "submit": "submit_form"
     },
     submit_form: function () {
-        var title = this.$el.find("#title");
+        var title = this.$el.find("#id_title");
         if (title) {
             (new usemockups.models.Document()).save({ title: title.val() },{
                 success: function (model) {
@@ -168,10 +183,36 @@ usemockups.views.NewDocumentForm = Backbone.View.extend({
     }
 });
 
+usemockups.views.DocumentEditForm = Backbone.View.extend({
+    el: "nav #document-properties form",
+    events: {
+        "submit": "submit_form"
+    },
+    render: function () {
+        this.$el.find("#id_title").val(this.model.get("title"));
+        this.$el.find("#id_width").val(this.model.get("width"));
+        this.$el.find("#id_height").val(this.model.get("height"));
+    },
+    submit_form: function () {
+        this.model.set({
+            "title": this.$el.find("#id_title").val(),
+            "width": this.$el.find("#id_width").val(),
+            "height": this.$el.find("#id_height").val()
+        });
+        this.model.save();
+        this.hide();
+        return false;
+    },
+    hide: function () {
+        this.$el.parent().hide();
+    }
+});
+
 usemockups.views.Navigation = Backbone.View.extend({
     el: "nav",
     events: {
-        "click a.menu": "toggle_navigation"
+        "click a.documents": "toggle_documents",
+        "click a.properties": "toggle_document_properties"
     },
     initialize: function () {
         this.model.on("reset", this.render, this);
@@ -191,11 +232,17 @@ usemockups.views.Navigation = Backbone.View.extend({
 
         new usemockups.views.NewDocumentForm({
             model: this.model
-        });
+        }).render();
 
     },
-    toggle_navigation: function () {
-        this.$el.find("section").toggle();
+    toggle_documents: function () {
+        this.$el.find("#document-properties").hide();
+        this.$el.find("#documents").toggle();
+        return false;
+    },
+    toggle_document_properties: function () {
+        this.$el.find("#documents").hide();
+        this.$el.find("#document-properties").toggle();
         return false;
     }
 });

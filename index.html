@@ -13,14 +13,36 @@
 
     <!-- layout -->
     <nav>
-        <a class="menu">Select a Document</a>
+        <a class="documents">Select a Document</a>
+        <a class="properties">Properties</a>
         <a class="export">Export</a>
-        <section>
+        <section id="documents">
             <h3>Documents</h3>
             <ul></ul>
             <h3>Create a new document</h3>
             <form>
-                <input type="text" name="title" id="title" />
+                <input type="text" name="title" id="id_title" />
+            </form>
+        </section>
+
+        <section id="document-properties">
+            <h3>Document Properties</h3>
+            <form>
+                <label for="id_title">Title</label>
+                <input type="text" name="title" id="id_title" />
+
+                <div class="width">
+                    <label for="id_width">Width</label>
+                    <input type="text" name="width" id="id_width" />
+                </div>
+
+                <div class="height">
+                    <label for="id_height">Height</label>
+                    <input type="text" name="height" id="id_height" />
+                </div>
+
+                <input type="submit" value="Save" id="save">
+
             </form>
         </section>
     </nav>
@@ -40,10 +62,10 @@
     </footer>
 
     <div id="social">
-        <iframe src="http://ghbtns.com/github-btn.html?user=fatiherikli&repo=mockup-designer&type=fork"
-                allowtransparency="true" frameborder="0" scrolling="0" width="63" height="20"></iframe>
-        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://fatiherikli.github.com/mockup-designer/" data-via="fthrkl" data-count="none">Tweet</a>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        <!--<iframe src="http://ghbtns.com/github-btn.html?user=fatiherikli&repo=mockup-designer&type=fork"-->
+                <!--allowtransparency="true" frameborder="0" scrolling="0" width="63" height="20"></iframe>-->
+        <!--<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://fatiherikli.github.com/mockup-designer/" data-via="fthrkl" data-count="none">Tweet</a>-->
+        <!--<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>-->
     </div>
 
     <!-- templates -->
