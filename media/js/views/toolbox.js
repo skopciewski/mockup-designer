@@ -63,6 +63,7 @@ usemockups.views.ToolPreview = Backbone.View.extend({
     },
 
     render: function () {
+        this.$el.addClass(this.tool.get("name"));
         var attributes = this.tool.get_attributes();
         this.$el.html(_.template(this.template, attributes));
         if (attributes.width)
