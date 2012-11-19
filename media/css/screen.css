@@ -106,8 +106,8 @@ nav {
     position: absolute;
     top: 28px;
     right: 120px;
-    z-index: 1;
     width: 450px;
+    z-index: 999;
 }
 
     nav > a {
@@ -128,7 +128,7 @@ nav {
     }
 
     nav section {
-        position: fixed;
+        position: absolute;
         width: 500px;
         display: none;
         background-color: #e8e8e8;
