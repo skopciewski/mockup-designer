@@ -8,7 +8,10 @@ usemockups.views.Tool = Backbone.View.extend({
     },
     render: function () {
 
-        $("<span>").html(this.get_label()).appendTo(this.$el);
+        $("<span>").html(this.get_label())
+            .appendTo(this.$el);
+
+        this.$el.addClass(this.model.get("name"));
 
         this.$el.draggable({
             cursor: "move",

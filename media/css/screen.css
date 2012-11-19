@@ -1,82 +1,102 @@
 body {
-    background: #5a5a5a;
+    background: #f4f4f4 url(../images/dots.png);
 }
 
 aside {
-    position: absolute;
-    width: 160px;
+    position: fixed;
+    width: 210px;
     height: 100%;
-    top: 100px;
-    left: 10px;
+    top: 0;
+    background: #323232;
+    padding-top: 10px;
+    -webkit-box-shadow: 0 0 20px #676767;
 
 }
 
     aside h2 {
         cursor: default;
-        padding: 2px 10px;
+        padding: 5px 10px;
         font-weight: normal;
         font-size: 18px;
-        text-align: right;
-        color: #fff;
-        background-color: #4a4a4a;
-        float: right;
-        border-right: solid 4px #434343;
-        margin: 0 8px 2px;
+        text-align: left;
+        color: #e2e2e2;
+        margin: 0 10px 0 5px;
+        /*border-left: 5px solid #212121;*/
+        /*background-color: #1d1d1d;*/
     }
 
     aside .toolbox {
         clear: both;
-        margin-top: 0;
-        margin-bottom: 20px;
-        margin-right: 3px;
-        padding: 0;
+        margin: 0 0 20px;
+        padding: 5px 0 0 10px;
+        overflow: hidden;
+
     }
 
     aside .toolbox li {
-        margin: 2px 5px;
         list-style: none;
         font-size: 12px;
-        text-align: right;
+        width: 40px;
+        height: 40px;
+        margin: 4px;
+        float: left;
+        display: block;
+        background-color: #2b2b2b;
+        border-radius: 5px;
 
-    }
 
-    aside .toolbox li:after {
-        content: "";
-        clear: both;
+
     }
 
     aside .toolbox li span {
         padding: 4px 10px;
-        background-color: #f3ef56;
         color: #303030;
         font-size: 18px;
         font-weight: bold;
-        display: inline-block;
+        display: block;
         cursor: default;
-        border-right: 4px solid #d2ce4a;
         cursor: move;
 
     }
 
+    aside .toolbox li {
+        background-image: url(../images/icons.png);
+        text-indent: -9999px;
+    }
+
+    aside .toolbox .checkbox    { background-position: -40px 0;}
+    aside .toolbox .radio       { background-position: -80px 0;}
+    aside .toolbox .combobox    { background-position: -120px 0;}
+    aside .toolbox .text        { background-position: -160px 0;}
+    aside .toolbox .heading     { background-position: -200px 0;}
+    aside .toolbox .paragraph   { background-position: -240px 0;}
+    aside .toolbox .label       { background-position: -280px 0;}
+    aside .toolbox .table       { background-position: -320px 0;}
+    aside .toolbox .image       { background-position: -360px 0;}
+    aside .toolbox .rectangle   { background-position: -400px 0;}
+    aside .toolbox .circle      { background-position: -440px 0;}
+
 article {
     background: white url(../images/paper.png);
-    margin: 80px 0 50px 162px;
-    width: 900px;
-    height: 1200px;
+    margin: 100px 0 50px 300px;
+    width: 600px;
+    height: 600px;
+    -webkit-box-shadow: 0 0 10px #bebebe;
+    border: 1px solid #d1d1d1;
 }
 
 header {
     position: absolute;
     top: 14px;
-    left: 162px;
-    width: 960px;
+    left: 290px;
+    width: 200px;
 }
 
     header h1 {
         margin: 0;
         padding: 10px;
         font-size: 30px;
-        color: #e8e8e8;
+        color: #5e5e5e;
         font-weight: normal;
         cursor: pointer;
     }
@@ -85,26 +105,26 @@ header {
 nav {
     position: absolute;
     top: 28px;
-    left: 712px;
+    right: 120px;
     z-index: 1;
     width: 350px;
 }
 
     nav > a {
         margin: 0;
-        background-color: #4e4e4e;
+        background-color: #ebebeb;
         font-size: 17px;
         padding: 5px 0;
         text-align: center;
         width: 170px;
         float: right;
-        color: #e8e8e8;
+        color: #585858;
         cursor: pointer;
         font-weight: bold;
     }
 
     nav > a:hover {
-        background-color: black;
+        background-color: #fee38d;
     }
 
     nav section {
@@ -168,7 +188,8 @@ footer {
 
     background-color: white;
     width: 100%;
-    border-top: 10px solid #f2ee55;
+    border-top: 10px solid #393939;
+
 }
 
     footer form {
@@ -177,7 +198,7 @@ footer {
 
     footer > * {
         width: 930px;
-        margin-left: 160px;
+        margin-left: 238px;
     }
 
     footer h2 {
@@ -335,6 +356,7 @@ footer {
 .object .text-input label {
     font-weight: bold;
     cursor: move;
+    color: #383838;
     font-size: 17px;
 }
 
@@ -467,8 +489,8 @@ footer {
 
 
 #social {
-    width: 100px;
-    position: fixed;
-    top: 82px;
-    left: 1072px;
+    width: 60px;
+    position: absolute;
+    top: 20px;
+    right: 30px;
 }

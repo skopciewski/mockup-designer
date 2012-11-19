@@ -140,11 +140,11 @@ usemockups.fixtures.toolbox = [
             },
             {
                 "name":"size",
-                "default":"14"
+                "default": 18
             },
             {
                 "name":"color",
-                "default":"black"
+                "default":"#383838"
             }
         ]
     },
