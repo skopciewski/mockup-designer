@@ -47,6 +47,21 @@ usemockups.fixtures.toolbox = [
         ]
     },
     {
+        "name":"hscrollbar",
+        "category":"form",
+        "template":"#hscrollbar-template",
+        "attributes":[
+            {
+                "name":"value",
+                "default": 30 /* percentage */
+            },
+            {
+                "name":"width",
+                "default":120
+            }
+        ]
+    },
+    {
         "name":"radio",
         "category":"form",
         "template":"#radio-template",

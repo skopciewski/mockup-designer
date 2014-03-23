@@ -67,6 +67,7 @@ aside {
     aside .toolbox .checkbox    { background-position: -40px 0;}
     aside .toolbox .radio       { background-position: -80px 0;}
     aside .toolbox .combobox    { background-position: -120px 0;}
+    aside .toolbox .hscrollbar  { background-position: -480px 0;}
     aside .toolbox .text        { background-position: -160px 0;}
     aside .toolbox .heading     { background-position: -200px 0;}
     aside .toolbox .paragraph   { background-position: -240px 0;}
@@ -452,6 +453,44 @@ footer {
     border-color: #383838 transparent transparent transparent;
     text-indent: -9999px;
 
+}
+
+.object .hscrollbar {
+    width: 100%;
+    height: 30px;
+    background-color: #e8e8e8;
+    overflow: hidden;
+    min-width: 120px;
+    border: 3px solid #383838;
+    border-radius: 5px;
+}
+
+.object .hscrollbar .trough {
+    height: 100%;
+    width: 30px;
+    background-color: black;
+}
+
+.object .hscrollbar .left,
+.object .hscrollbar .right {
+    position: absolute;
+    top: 11px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    text-indent: -9999px;
+}
+
+.object .hscrollbar .left {
+    left: 5px;
+    border-width: 8px 12px 8px 0;
+    border-color: transparent #383838 transparent transparent;
+}
+
+.object .hscrollbar .right {
+    right: 5px;
+    border-width: 8px 0 8px 12px;
+    border-color: transparent transparent transparent #383838;
 }
 
 .object.preview {
