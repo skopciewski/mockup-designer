@@ -154,9 +154,19 @@
     </script>
 
     <script type="text/html" id="progressbar-template">
-         <div class="progressbar" data-attribute="text">
-         <div class="bar" style="width: <%= percent %>%;"></div>
-         </div>
+        <div class="progressbar" data-attribute="text">
+        <div class="bar" style="width: <%= percent %>%;"></div>
+        </div>
+    </script>
+
+    <script type="text/html" id="browser-template">
+        <div class="browser">
+            <div class="top">
+                <%= title %>
+                <div class="url" data-attribute="text"><%= url %></div>
+            </div>
+            <div class="page-content"></div>
+        </div>
     </script>
 
     <script type="text/html" id="table-template">
