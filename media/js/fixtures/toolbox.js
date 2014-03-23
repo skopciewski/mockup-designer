@@ -62,6 +62,21 @@ usemockups.fixtures.toolbox = [
         ]
     },
     {
+        "name":"progressbar",
+        "category":"form",
+        "template":"#progressbar-template",
+        "attributes":[
+            {
+                "name":"percent",
+                "default": 30
+            },
+            {
+                "name":"width",
+                "default":120
+            }
+        ]
+    },
+    {
         "name":"radio",
         "category":"form",
         "template":"#radio-template",
