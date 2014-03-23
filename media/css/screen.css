@@ -77,6 +77,7 @@ aside {
     aside .toolbox .circle      { background-position: -440px 0;}
     aside .toolbox .hscrollbar  { background-position: -480px 0;}
     aside .toolbox .progressbar { background-position: -520px 0;}
+    aside .toolbox .browser     { background-position: -560px 0;}
 
 article {
     background: white url(../images/paper.png);
@@ -507,6 +508,42 @@ footer {
     width: 50%;
     height: 100%;
     background-color: black;
+}
+
+.object .browser {
+    height: 100%;
+    width: 100%;
+    display:table;
+    border-collapse: collapse;
+    border: 3px solid #383838;
+    background-color: #e8e8e8;
+    color: #383838;
+}
+
+.object .browser .top {
+    display:table-row;
+    text-align: center;
+}
+
+.object .browser .url {
+    width: 60%;
+    margin: 0 auto 5px;
+    border-radius: 5px;
+    padding: 2px 5px;
+    text-align: left;
+    font-weight: normal;
+    border: 3px solid #383838;
+}
+
+.object .browser .page-content:before {
+    content: " ";
+}
+
+.object .browser .page-content {
+    display:table-row;
+    height: 100%;
+    background-color: #e8e8e8;
+    border: 3px solid #383838;
 }
 
 .object.preview {
