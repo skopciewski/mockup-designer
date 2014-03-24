@@ -77,6 +77,29 @@ usemockups.fixtures.toolbox = [
         ]
     },
     {
+        "name":"browser",
+        "category":"form",
+        "template":"#browser-template",
+        "attributes":[
+            {
+                "name":"title",
+                "default": "Website"
+            },
+            {
+                "name":"url",
+                "default": "http://"
+            },
+            {
+                "name":"width",
+                "default":250
+            },
+            {
+                "name":"height",
+                "default":250
+            }
+        ]
+    },
+    {
         "name":"radio",
         "category":"form",
         "template":"#radio-template",
