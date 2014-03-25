@@ -21,4 +21,4 @@ Demo
 Contributors
 -------------
 
- - [@AndreMiras](http://github.com/AndreMiras)
+ - [Andre Miras](http://github.com/AndreMiras)
