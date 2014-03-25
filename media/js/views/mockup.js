@@ -3,7 +3,7 @@ usemockups.views.Mockup = Backbone.View.extend({
     className: "object",
     events: {
         "click": "show_property_dialog",
-        "keydown": "move"
+        "keydown": "keydown"
     },
     initialize: function () {
 
@@ -146,7 +146,10 @@ usemockups.views.Mockup = Backbone.View.extend({
         this.$el.remove();
     },
 
-    move: function (e) {
+    /*
+     * Moves the mockup if the key was an arrow key.
+     */
+    keydown_move: function (e) {
         var movements = {
             37: { "left": -5 },
             39: { "left": 5 },
@@ -160,6 +163,21 @@ usemockups.views.Mockup = Backbone.View.extend({
             }
             return false;
         }
+    },
+
+    /*
+     * Deletes the mockup if the key was the del key.
+     */
+    keydown_destroy: function (e) {
+        if (e.keyCode == 46) {
+            this.model.destroy();
+            return false;
+        }
+    },
+
+    keydown: function (e) {
+        this.keydown_move(e);
+        this.keydown_destroy(e);
     }
 
 
