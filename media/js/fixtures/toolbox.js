@@ -220,6 +220,11 @@ usemockups.fixtures.toolbox = [
                 "default":"3"
             },
             {
+                "name": "header",
+                "default": true,
+                "type":"boolean"
+            },
+            {
                 "name":"values",
                 "hidden":true,
                 "default":[

@@ -171,7 +171,19 @@
 
     <script type="text/html" id="table-template">
         <table>
-            <% for (var i=0; i < rows; i++ ) { %>
+          <% if (header) { %>
+          <thead>
+            <tr>
+              <% for (var col=0; col < columns; col++ ) { %>
+              <th>
+               <input type="text" data-row="<%= 0 %>" data-column="<%= col %>" value="<%=  values[0] ? values[0][col] : ''  %>" />
+              </th>
+              <% } %>
+            </tr>
+          </thead>
+        <% } %>
+        <tbody>
+            <% for (var i=header ? 1 : 0; i < rows; i++ ) { %>
                 <tr>
                     <% for (var j=0; j < columns; j++ ) { %>
                         <td>
@@ -180,6 +192,7 @@
                     <% } %>
                 </tr>
             <% } %>
+        </tbody>
         </table>
     </script>
 
