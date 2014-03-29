@@ -152,7 +152,6 @@ usemockups.views.NavigationItem = Backbone.View.extend({
     },
     navigate: function () {
         this.options.router.navigate_document(this.model);
-        this.options.parent.toggle_navigation();
     },
     destroy: function () {
         if (!window.confirm("Are you sure?"))
