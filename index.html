@@ -15,7 +15,8 @@
     <nav>
         <a class="documents">Select a Document</a>
         <a class="properties">Properties</a>
-        <a class="export">Export</a>
+        <a class="import-export">Import / Export</a>
+
         <section id="documents">
             <h3>Documents</h3>
             <ul></ul>
@@ -45,6 +46,17 @@
 
             </form>
         </section>
+
+        <section id="document-import-export">
+            <h3>Import / Export</h3>
+            <form>
+                <label for="id_models">Models</label>
+                <textarea name="textarea" rows="10" cols="60" id="id_models"></textarea>
+                <input type="submit" value="Import" id="import">
+                <a class="export-image">Export PNG</a>
+            </form>
+        </section>
+
     </nav>
 
     <aside>
