@@ -626,3 +626,7 @@ footer {
     top: 20px;
     right: 30px;
 }
+
+#id_models {
+   width: 100%;
+}
