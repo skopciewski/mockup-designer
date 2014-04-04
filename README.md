@@ -13,6 +13,12 @@ Built with Backbone, Backbone-LocalStorage and Html2Canvas.
 
 
 Demo
-=====
+----
 
 <http://fatiherikli.github.com/mockup-designer/>
+
+
+Contributors
+-------------
+
+ - [Andre Miras](http://github.com/AndreMiras)
