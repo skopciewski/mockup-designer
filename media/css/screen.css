@@ -78,6 +78,7 @@ aside {
     aside .toolbox .hscrollbar  { background-position: -480px 0;}
     aside .toolbox .progressbar { background-position: -520px 0;}
     aside .toolbox .browser     { background-position: -560px 0;}
+    aside .toolbox .groupbox    { background-position: -600px 0;}
 
 article {
     background: white url(../images/paper.png);
@@ -545,8 +546,26 @@ footer {
 .object .browser .page-content {
     display:table-row;
     height: 100%;
-    background-color: #e8e8e8;
     border: 3px solid #383838;
+}
+
+.object fieldset {
+    height: 100%;
+    width: 100%;
+    border: 3px solid #383838;
+    background-color: #e8e8e8;
+}
+
+.object fieldset legend {
+   margin: 0 0 0 20px;
+}
+
+.object fieldset .content {
+    height: 100%;
+}
+
+.object fieldset .content:before {
+    content: " ";
 }
 
 .object.preview {

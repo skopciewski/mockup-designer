@@ -100,6 +100,25 @@ usemockups.fixtures.toolbox = [
         ]
     },
     {
+        "name":"groupbox",
+        "category":"form",
+        "template":"#groupbox-template",
+        "attributes":[
+            {
+                "name":"title",
+                "default": "GroupBox"
+            },
+            {
+                "name":"width",
+                "default":250
+            },
+            {
+                "name":"height",
+                "default":250
+            }
+        ]
+    },
+    {
         "name":"radio",
         "category":"form",
         "template":"#radio-template",
