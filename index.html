@@ -15,7 +15,8 @@
     <nav>
         <a class="documents">Select a Document</a>
         <a class="properties">Properties</a>
-        <a class="export">Export</a>
+        <a class="import-export">Import / Export</a>
+
         <section id="documents">
             <h3>Documents</h3>
             <ul></ul>
@@ -45,6 +46,17 @@
 
             </form>
         </section>
+
+        <section id="document-import-export">
+            <h3>Import / Export</h3>
+            <form>
+                <label for="id_models">Models</label>
+                <textarea name="textarea" rows="10" cols="60" id="id_models"></textarea>
+                <input type="submit" value="Import" id="import">
+                <a class="export-image">Export PNG</a>
+            </form>
+        </section>
+
     </nav>
 
     <aside>
@@ -171,7 +183,19 @@
 
     <script type="text/html" id="table-template">
         <table>
-            <% for (var i=0; i < rows; i++ ) { %>
+          <% if (header) { %>
+          <thead>
+            <tr>
+              <% for (var col=0; col < columns; col++ ) { %>
+              <th>
+               <input type="text" data-row="<%= 0 %>" data-column="<%= col %>" value="<%=  values[0] ? values[0][col] : ''  %>" />
+              </th>
+              <% } %>
+            </tr>
+          </thead>
+        <% } %>
+        <tbody>
+            <% for (var i=header ? 1 : 0; i < rows; i++ ) { %>
                 <tr>
                     <% for (var j=0; j < columns; j++ ) { %>
                         <td>
@@ -180,6 +204,7 @@
                     <% } %>
                 </tr>
             <% } %>
+        </tbody>
         </table>
     </script>
 

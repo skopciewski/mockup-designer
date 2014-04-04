@@ -88,7 +88,7 @@ usemockups.views.Document = Backbone.View.extend({
 
     events: {
         "click header": "change_title",
-        "click .export": "export"
+        "click .export-image": "export_image"
     },
 
     initialize: function () {
@@ -109,8 +109,12 @@ usemockups.views.Document = Backbone.View.extend({
         this.edit_form = new usemockups.views.DocumentEditForm({
             model: this.model
         });
-
         this.edit_form.render();
+
+        this.import_export_form = new usemockups.views.DocumentImportExportForm({
+            model: this.model
+        });
+        this.import_export_form.render();
 
         this.render_title();
     },
@@ -129,7 +133,7 @@ usemockups.views.Document = Backbone.View.extend({
         }
     },
 
-    export: function () {
+    export_image: function () {
         html2canvas([this.article.el], {
             onrendered: function(canvas) {
                 window.open(canvas.toDataURL("image/png"));
@@ -208,11 +212,44 @@ usemockups.views.DocumentEditForm = Backbone.View.extend({
     }
 });
 
+// http://stackoverflow.com/questions/13294216/exporting-backbone-js-collection-to-plain-text-on-hard-disk-importing-back
+usemockups.views.DocumentImportExportForm = Backbone.View.extend({
+    el: "nav #document-import-export form",
+    events: {
+        "submit": "submit_form"
+    },
+
+    initialize: function() {
+        this.model.on("change", this.render, this);
+    },
+
+    render: function () {
+        // makes sure previous content is voided
+        this.$el.find("#id_models").val("");
+        if (typeof this.model.mockups !== 'undefined' && this.model.mockups.length > 0) {
+            this.$el.find("#id_models").val(JSON.stringify(this.model.mockups, null, 2));
+        }
+    },
+
+    submit_form: function () {
+        var mockups = JSON.parse(this.$el.find("#id_models").val());
+        this.model.mockups.add(mockups);
+        this.model.save();
+        this.hide();
+        return false;
+    },
+
+    hide: function () {
+        this.$el.parent().hide();
+    }
+});
+
 usemockups.views.Navigation = Backbone.View.extend({
     el: "nav",
     events: {
         "click a.documents": "toggle_documents",
-        "click a.properties": "toggle_document_properties"
+        "click a.properties": "toggle_document_properties",
+        "click a.import-export": "toggle_import_export"
     },
     initialize: function () {
         this.model.on("reset", this.render, this);
@@ -237,12 +274,20 @@ usemockups.views.Navigation = Backbone.View.extend({
     },
     toggle_documents: function () {
         this.$el.find("#document-properties").hide();
+        this.$el.find("#document-import-export").hide();
         this.$el.find("#documents").toggle();
         return false;
     },
     toggle_document_properties: function () {
         this.$el.find("#documents").hide();
+        this.$el.find("#document-import-export").hide();
         this.$el.find("#document-properties").toggle();
+        return false;
+    },
+    toggle_import_export: function () {
+        this.$el.find("#documents").hide();
+        this.$el.find("#document-properties").hide();
+        this.$el.find("#document-import-export").toggle();
         return false;
     }
 });
