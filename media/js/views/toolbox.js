@@ -1,3 +1,4 @@
+//the tools/kinds-of-elements
 usemockups.views.Tool = Backbone.View.extend({
     tagName: "li",
     initialize: function () {

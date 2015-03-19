@@ -1,3 +1,5 @@
+//this is the main document view (the "viewport" or "canvas" where the actual content is created)
+
 usemockups.views.Page = Backbone.View.extend({
     "el": "article",
 
@@ -27,7 +29,7 @@ usemockups.views.Page = Backbone.View.extend({
 
         return this;
     },
-    
+
     render_mockups: function () {
         this.$el.empty();
         _.forEach(this.model.mockups.models, function (model) {
@@ -52,7 +54,7 @@ usemockups.views.Page = Backbone.View.extend({
         this.$el.droppable({
             accept: ".toolbox li",
             drop: function (event, ui) {
-                
+
                 var left =  ui.offset.left - this.$el.offset().left,
                     top = ui.offset.top - this.$el.offset().top,
                     tool_name = ui.draggable.data("tool");
@@ -82,7 +84,7 @@ usemockups.views.Page = Backbone.View.extend({
     }
 });
 
-
+//this is the main view of the app (with toolbars, the document itself ("page") etc.)
 usemockups.views.Document = Backbone.View.extend({
     el: "body",
 
@@ -142,7 +144,7 @@ usemockups.views.Document = Backbone.View.extend({
     }
 });
 
-
+//this is the view of items of documents (select and destroy functions)
 usemockups.views.NavigationItem = Backbone.View.extend({
     tagName: "li",
     template: $("#navigation-item-template").html(),
@@ -167,6 +169,7 @@ usemockups.views.NavigationItem = Backbone.View.extend({
     }
 });
 
+//this is the view of a form to create a new document
 usemockups.views.NewDocumentForm = Backbone.View.extend({
     el: "nav #documents form",
     events: {
@@ -186,6 +189,7 @@ usemockups.views.NewDocumentForm = Backbone.View.extend({
     }
 });
 
+//view for setting document properties
 usemockups.views.DocumentEditForm = Backbone.View.extend({
     el: "nav #document-properties form",
     events: {

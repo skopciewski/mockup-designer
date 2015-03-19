@@ -1,3 +1,5 @@
+//This is the view for the mockup elements (button, checkbox, etc.)
+
 usemockups.views.Mockup = Backbone.View.extend({
     tagName: "div",
     className: "object",
@@ -10,7 +12,7 @@ usemockups.views.Mockup = Backbone.View.extend({
         this.model.on("change", this.render, this);
 
         this.article = $("article");
-        this.tool = usemockups.toolbox.get(this.model.get("tool"));
+        this.tool = usemockups.toolbox.get(this.model.get("tool")); //gets which kind of mockup element it is (called tool, since they are created via tools). Get model via text string like "text"(for text tool) ,since the toolbox-model’s ids are actually human readable text strings for the represented tools.
         this.template = $(this.tool.get("template")).html();
 
         this.model.on("destroy", this.detach, this)
@@ -185,6 +187,7 @@ usemockups.views.Mockup = Backbone.View.extend({
 
 /*
 * Custom Mockups
+Extend the normal mockups functionality with additional/different functionality
 * */
 
 usemockups.views.TableMockup = usemockups.views.Mockup.extend({

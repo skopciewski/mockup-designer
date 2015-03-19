@@ -5,7 +5,7 @@ usemockups.models.Mockup = Backbone.Model.extend({
         z_index: 0
     },
     initialize: function () {
-        this.tool = usemockups.toolbox.get(this.get("tool"));
+        this.tool = usemockups.toolbox.get(this.get("tool")); //get the model of the tool/kind of mockup element
         this.get_attributes = this.tool.get_attributes.bind(this.tool, this);
         _.forEach(this.get_attributes(), function (value, key) {
             this.set(key, value);
