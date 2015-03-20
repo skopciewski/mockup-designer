@@ -228,10 +228,10 @@ footer {
     display: none;
     position: fixed;
     bottom: 0;
-
     background-color: white;
     width: 100%;
-    border-top: 10px solid #393939;
+    border-top: 1px solid #393939;
+	z-index: 200;
 
 }
 
@@ -239,49 +239,56 @@ footer {
 
     }
 
-    footer > * {
-        width: 930px;
-        margin-left: 238px;
-    }
 
     footer h2 {
-        margin-top: 5px;
-        margin-bottom: 5px;
-        padding: 4px;
+
+        padding-left:0.5em;
         color: gray;
-        font-weight: normal;
+        font-weight: bold;
+		font-size: 1em;
+		position: absolute;
+		left:0;
 
     }
 
     footer form {
-        padding-left: 4px;
+        padding: 4px;
+		width: 95%;
+		border-left: 7em solid #eee;/*to make space for the toolbar title*/
+		padding: 4px 4px 4px 1em;
+		width: 95%;
     }
 
     footer form .line {
-        width: 120px;
-        float: left;
-        margin-right: 30px;
-        margin-left: 2px;
-        padding-bottom: 20px;
+		display: inline-block;
+		margin-right: 1em;
+		padding:5px 0 0 0;
     }
 
     footer form input {
-        width: 100%;
         outline: none;
         padding: 2px 4px;
-
+		display: inline;
     }
+
+	footer form input[type=text]{width: 6em;}
 
     footer form label {
         color: #484848;
+		display: inline;
     }
 
     footer .line.tools {
-        float: right;
-        text-align: right;
-        font-size: 18px;
-        margin-top: -35px;
+		margin-left: 20px;
+		padding-left: 22px;
+		right: 0;
+		text-align: right;
     }
+
+	footer .line.tools .delete {
+		margin-left: 1em;
+    }
+
 
     footer a {
         display: inline-block;
