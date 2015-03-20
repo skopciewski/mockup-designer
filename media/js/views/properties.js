@@ -1,3 +1,4 @@
+//Property Dialog for single elements of the mockup
 usemockups.views.PropertyDialog = Backbone.View.extend({
     el: "footer form",
     template: $("#property-form-template").html(),
