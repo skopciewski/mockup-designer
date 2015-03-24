@@ -43,9 +43,7 @@ aside {
         display: block;
         background-color: #2b2b2b;
         border-radius: 5px;
-
-
-
+        transform: scale(0.9);
     }
 
     aside .toolbox li span {
