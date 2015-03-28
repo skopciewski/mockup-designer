@@ -131,7 +131,7 @@ usemockups.views.Document = Backbone.View.extend({
         if (title) {
             this.model.save({
                 title: title
-            })
+            });
         }
     },
 
