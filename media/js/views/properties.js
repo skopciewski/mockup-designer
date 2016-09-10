@@ -53,8 +53,13 @@ usemockups.views.PropertyDialog = Backbone.View.extend({
     },
     get_attributes: function () {
         return _.map(this.model.tool.get("attributes"), function (attribute) {
+            var value = this.model.get(attribute.name);
+            // makes sure the input is escaped if it's a string
+            if (typeof value === 'string' || value instanceof String) {
+                value = value.replace(/"/g, '&quot;');
+            }
             return _.extend({
-                "value": this.model.get(attribute.name)
+                "value": value
             }, attribute);
         },this)
     },
