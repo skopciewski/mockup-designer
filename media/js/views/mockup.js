@@ -121,6 +121,10 @@ usemockups.views.Mockup = Backbone.View.extend({
 
     },
 
+	measure: function(){
+    	this.model.set("measured_size", {height: this.$el.height(), width: this.$el.width()});
+	},
+
     focus: function () {
         this.$el.focus();
         return this;
@@ -139,9 +143,12 @@ usemockups.views.Mockup = Backbone.View.extend({
             usemockups.active_property_dialog.undelegateEvents();
         }
 
+        var measuredSizes = {height: this.$el.height(), width: this.$el.width()};
+        var measuredSizes = {height: this.$el.height(), width: this.$el.width()};
+
         usemockups.active_property_dialog = (new usemockups.views.PropertyDialog({
             "model": this.model
-        })).render()
+        })).set_measuredSizes(measuredSizes).render()
     },
 
     detach: function () {

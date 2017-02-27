@@ -5,7 +5,8 @@ usemockups.views.PropertyDialog = Backbone.View.extend({
     events: {
         'submit': 'submit',
         'click .send-to-back': 'send_to_back',
-        'click .bring-to-front': 'bring_to_front'
+        'click .bring-to-front': 'bring_to_front',
+		'click .center-item': 'center_item'
     },
     initialize: function () {
         this.on("update_for_attribute", this.update_for_attribute);
@@ -16,7 +17,6 @@ usemockups.views.PropertyDialog = Backbone.View.extend({
     render: function () {
 
         this.footer.show();
-
         this.$el.html(_.template(this.template, {
             "attributes": this.get_attributes()
         })).find("input").change(function (ui) {
@@ -41,6 +41,10 @@ usemockups.views.PropertyDialog = Backbone.View.extend({
         }.bind(this));
 
         return this;
+    },
+    set_measuredSizes: function (measuredSizes){
+      this.measuredSizes = measuredSizes;
+      return this;
     },
     update_for_attribute: function (field) {
         this.$el.find("#id_"  + field.data("attribute")).val(field.val());
@@ -69,6 +73,15 @@ usemockups.views.PropertyDialog = Backbone.View.extend({
         this.hide();
         return false;
     },
+	center_item: function () {
+        var documentWidth = usemockups.active_document_view.model.attributes.width;
+        var left = Math.floor((documentWidth - this.measuredSizes.width) / 2);
+		this.model.set({
+			"left":  left
+		});
+
+		return false;
+	},
     send_to_back: function () {
         this.model.set({
             "z_index":  usemockups.views.Mockup.prototype.min_z_index
