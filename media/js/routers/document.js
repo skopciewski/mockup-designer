@@ -4,7 +4,7 @@ usemockups.routers.Document = Backbone.Router.extend({
         "": "index"
     },
     initialize: function (options) {
-        this.documents = options.documents;
+        this.documents = options.documents; //passed (empty) documents object
     },
     get_document: function (document_id) {
 
@@ -14,7 +14,8 @@ usemockups.routers.Document = Backbone.Router.extend({
 
         document.fetch();
 
-        if (usemockups.active_document_view) {
+        if (usemockups.active_document_view) {//if there is already an opened document…
+            //undelegate the events of the still opened page (usemockups.views.Page) and the views for additional function
             usemockups.active_document_view.undelegateEvents();
             usemockups.active_document_view.article.undelegateEvents();
             usemockups.active_document_view.edit_form.undelegateEvents();
@@ -25,6 +26,7 @@ usemockups.routers.Document = Backbone.Router.extend({
             usemockups.active_property_dialog.hide();
         }
 
+        //create a new document view with the passed document as model
         usemockups.active_document_view = new usemockups.views.Document({
             model: document
         });
@@ -38,7 +40,7 @@ usemockups.routers.Document = Backbone.Router.extend({
                 this.navigate_document(this.documents.last());
             else
                 this.create_demo_document();
-        }, this)
+        }, this);
     },
     create_demo_document: function () {
         var demo_document = new usemockups.models.Document();
